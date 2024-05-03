@@ -1,0 +1,41 @@
+{
+  "facilities": [
+    {
+      "equipmentId": 1,
+      "name": "student computers",
+      "quantity": 25,
+      "budget": 25,
+      "creation": "April 20,2025",
+      "period": "6 months",
+      "state": "In progress"
+    },
+    {
+      "equipmentId": 2,
+      "name": "student computers",
+      "quantity": 25,
+      "budget": 25,
+      "creation": "April 20,2025",
+      "period": "6 months",
+      "state": "In progress"
+    },
+    {
+      "equipmentId": 3,
+      "name": "student computers",
+      "quantity": 25,
+      "budget": 25,
+      "creation": "April 20,2025",
+      "period": "6 months",
+      "state": "In progress"
+    },
+    {
+      "equipmentId": 4,
+      "name": "student computers",
+      "quantity": 25,
+      "budget": 25,
+      "creation": "April 20,2025",
+      "period": "6 months",
+      "state": "In progress"
+    }
+
+  ]
+}
