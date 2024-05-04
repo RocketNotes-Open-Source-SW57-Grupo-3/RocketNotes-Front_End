@@ -1,0 +1,105 @@
+{
+
+  "facilities": [
+    {
+      "equipmentId": 1,
+      "name": "student computers",
+      "quantity": 25,
+      "budget": 25,
+      "creation": "April 20,2025",
+      "period": "6 months",
+      "state": "In progress"
+    },
+    {
+      "equipmentId": 2,
+      "name": "student computers",
+      "quantity": 25,
+      "budget": 25,
+      "creation": "April 20,2025",
+      "period": "6 months",
+      "state": "In progress"
+    },
+    {
+      "equipmentId": 3,
+      "name": "student computers",
+      "quantity": 25,
+      "budget": 25,
+      "creation": "April 20,2025",
+      "period": "6 months",
+      "state": "In progress"
+    },
+    {
+      "equipmentId": 4,
+      "name": "student computers",
+      "quantity": 25,
+      "budget": 25,
+      "creation": "April 20,2025",
+      "period": "6 months",
+      "state": "In progress"
+    }
+
+  ]
+},
+  "students": [
+    {
+      "studentId": 1,
+      "name": "Sanches Fernandez Pedro",
+      "studentCode": "u20201b333@upc.edu.pe",
+      "enrollmentStatus": "Enrolled"
+    },
+    {
+      "studentId": 2,
+      "name": "Gomez Rodriguez Maria",
+      "studentCode": "u20201b334@upc.edu.pe",
+      "enrollmentStatus": "Enrolled"
+    },
+    {
+      "studentId": 3,
+      "name": "Lopez Martinez Juan",
+      "studentCode": "u20201b335@upc.edu.pe",
+      "enrollmentStatus": "Enrolled"
+    },
+    {
+      "studentId": 4,
+      "name": "Hernandez Garcia Ana",
+      "studentCode": "u20201b336@upc.edu.pe",
+      "enrollmentStatus": "Enrolled"
+    },
+    {
+      "studentId": 5,
+      "name": "Diaz Perez Luis",
+      "studentCode": "u20201b337@upc.edu.pe",
+      "enrollmentStatus": "Enrolled"
+    },
+    {
+      "studentId": 6,
+      "name": "Rodriguez Sanchez Laura",
+      "studentCode": "u20201b338@upc.edu.pe",
+      "enrollmentStatus": "Enrolled"
+    },
+    {
+      "studentId": 7,
+      "name": "Martinez Gonzalez Jorge",
+      "studentCode": "u20201b339@upc.edu.pe",
+      "enrollmentStatus": "Enrolled"
+    },
+    {
+      "studentId": 8,
+      "name": "Perez Lopez Sofia",
+      "studentCode": "u20201b340@upc.edu.pe",
+      "enrollmentStatus": "Enrolled"
+    },
+    {
+      "studentId": 9,
+      "name": "Garcia Hernandez Carlos",
+      "studentCode": "u20201b341@upc.edu.pe",
+      "enrollmentStatus": "Enrolled"
+    },
+    {
+      "studentId": 10,
+      "name": "Sanchez Diaz Marta",
+      "studentCode": "u20201b342@upc.edu.pe",
+      "enrollmentStatus": "Enrolled"
+    }
+  ]
+}

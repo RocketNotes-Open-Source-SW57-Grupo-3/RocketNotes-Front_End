@@ -36,6 +36,7 @@ import { CourseCreateFormComponent } from './infrastructure/components/course-cr
     ClassroomCoursesComponent,
     CoursesViewComponent,
     CourseCreateFormComponent,
+
   ],
 
   imports: [
