@@ -26,13 +26,23 @@ const appRoutes: Routes = [
     canActivate:[AuthGuard]
   },
   {
+    path:'facilities-list',
+    loadChildren: ()=> import('./features/facilitie/facilitie.module').then(m=>m.FacilitieModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'equipment-list',
+    loadChildren: () => import('./features/equipment/equipment.module').then(m => m.EquipmentModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'customers',
     loadChildren: () => import('./features/customers/customers.module').then(m => m.CustomersModule),
     canActivate: [AuthGuard]
   },
   {
-    path: 'users',
-    loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule),
+    path: 'maintenance',
+    loadChildren: () => import('./features/maintenance/facilities.module').then(m => m.FacilitiesModule),
     canActivate: [AuthGuard]
   },
   {
@@ -55,12 +65,8 @@ const appRoutes: Routes = [
     path: '**',
     redirectTo: 'classrooms',
     pathMatch: 'full'
-<<<<<<< Updated upstream
-  }
-=======
   },
 
->>>>>>> Stashed changes
 ];
 
 @NgModule({

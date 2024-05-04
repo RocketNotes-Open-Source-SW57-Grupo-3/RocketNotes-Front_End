@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {environmentDevelopment} from "../../../environments/environment.development";
 import {catchError, Observable, retry, throwError} from "rxjs";
@@ -6,9 +7,11 @@ import {catchError, Observable, retry, throwError} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
+
 export class BaseService <T>{
   basePath: string= `${environmentDevelopment.serverBasePath}`;
   resourceEndpoint: string='/resources';
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -40,4 +43,5 @@ export class BaseService <T>{
         .pipe(retry(2),catchError(this.handleError))
   }
 }
+
 
