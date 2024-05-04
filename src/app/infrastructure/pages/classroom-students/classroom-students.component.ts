@@ -15,8 +15,8 @@ export class ClassroomStudentsComponent implements OnInit {
   constructor(private studentService: StudentsService) {}
 
   ngOnInit() {
-    this.studentService.getAll().subscribe({
-      next: (data) => {
+    this.studentService.get().subscribe({
+      next: (data:any) => {
         this.dataSource = data;
       },
       error: (err) => console.error(err)

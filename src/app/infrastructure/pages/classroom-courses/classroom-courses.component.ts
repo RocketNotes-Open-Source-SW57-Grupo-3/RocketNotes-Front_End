@@ -5,7 +5,7 @@ import {ClassroomsService} from "../../services/classrooms.service";
 @Component({
   selector: 'app-classroom-courses',
   templateUrl: './classroom-courses.component.html',
-  styleUrl: './classroom-courses.component.css'
+  styleUrls: ['./classroom-courses.component.css']
 })
 export class ClassroomCoursesComponent implements OnInit {
   classrooms: Classroom[] = [];
@@ -14,8 +14,8 @@ export class ClassroomCoursesComponent implements OnInit {
   constructor(private classroomService: ClassroomsService) {}
 
   ngOnInit() {
-    this.classroomService.getAll().subscribe({
-      next: (data) => {
+    this.classroomService.get().subscribe({
+      next: (data: any  ) => {
         this.classrooms = data;
       },
       error: (err) => console.error(err)
