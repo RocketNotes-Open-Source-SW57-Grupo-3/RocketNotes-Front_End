@@ -6,7 +6,9 @@ import {Course} from "../../model/course.entity";
 @Component({
   selector: 'app-course-create-form',
   templateUrl: './course-create-form.component.html',
-  styleUrl: './course-create-form.component.css'
+
+  styleUrls: ['./course-create-form.component.css']
+
 })
 export class CourseCreateFormComponent {
   @Input() course: Course;

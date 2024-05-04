@@ -10,7 +10,7 @@ import { CustomMaterialModule } from './custom-material/custom-material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { LoggerModule } from 'ngx-logger';
 import { environment } from '../environments/environment';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
@@ -29,6 +29,7 @@ import { ClassroomCoursesComponent } from './infrastructure/pages/classroom-cour
 import { CoursesViewComponent} from "./infrastructure/pages/courses-view/courses-view.component";
 import { CourseCreateFormComponent } from './infrastructure/components/course-create-form/course-create-form.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +39,7 @@ import { CourseCreateFormComponent } from './infrastructure/components/course-cr
     ClassroomCoursesComponent,
     CoursesViewComponent,
     CourseCreateFormComponent,
+
   ],
 
   imports: [

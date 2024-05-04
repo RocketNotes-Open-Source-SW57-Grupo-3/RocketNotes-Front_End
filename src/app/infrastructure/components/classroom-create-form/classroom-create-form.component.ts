@@ -6,7 +6,9 @@ import {Classroom} from "../../model/classroom.entity";
 @Component({
   selector: 'app-classroom-create-form',
   templateUrl: './classroom-create-form.component.html',
-  styleUrl: './classroom-create-form.component.css'
+
+  styleUrls: ['./classroom-create-form.component.css']
+
 })
 
 export class ClassroomCreateFormComponent {

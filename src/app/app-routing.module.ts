@@ -15,8 +15,8 @@ const appRoutes: Routes = [
   },
 
   {
-    path: 'dashboard',
-    loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule),
+    path: 'classrooms',
+    loadChildren: () => import('./features/classrooms/classrooms.module').then(m => m.ClassroomsModule),
     canActivate: [AuthGuard]
   },
   {
@@ -31,13 +31,23 @@ const appRoutes: Routes = [
     canActivate:[AuthGuard]
   },
   {
+    path:'facilities-list',
+    loadChildren: ()=> import('./features/facilitie/facilitie.module').then(m=>m.FacilitieModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'equipment-list',
+    loadChildren: () => import('./features/equipment/equipment.module').then(m => m.EquipmentModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'customers',
     loadChildren: () => import('./features/customers/customers.module').then(m => m.CustomersModule),
     canActivate: [AuthGuard]
   },
   {
-    path: 'users',
-    loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule),
+    path: 'maintenance',
+    loadChildren: () => import('./features/maintenance/facilities.module').then(m => m.FacilitiesModule),
     canActivate: [AuthGuard]
   },
   {
@@ -45,11 +55,7 @@ const appRoutes: Routes = [
     loadChildren: () => import('./features/account/account.module').then(m => m.AccountModule),
     canActivate: [AuthGuard]
   },
-  {
-    path: 'icons',
-    loadChildren: () => import('./features/icons/icons.module').then(m => m.IconsModule),
-    canActivate: [AuthGuard]
-  },
+
   {
     path: 'typography',
     loadChildren: () => import('./features/typography/typography.module').then(m => m.TypographyModule),
@@ -62,13 +68,14 @@ const appRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'dashboard',
+    redirectTo: 'classrooms',
     pathMatch: 'full'
   },
   {path:'capacity', component: ClassroomCapacityComponent},
   {path:'students', component: ClassroomStudentsComponent},
   {path:'classrooms', component: ClassroomCoursesComponent},
   {path:'courses', component: CoursesViewComponent},
+
 ];
 
 @NgModule({
