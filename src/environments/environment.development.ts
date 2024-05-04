@@ -1,6 +1,6 @@
 export const environmentDevelopment = {
     production: false,
-    serverBasePath: 'http://localhost:3000'
+    serverBasePath: 'https://rocket-notes-fake-api.vercel.app'
 
 };
 

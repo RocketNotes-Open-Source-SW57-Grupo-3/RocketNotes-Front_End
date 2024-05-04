@@ -3,9 +3,6 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `<router-outlet></router-outlet>`,
-
-  //templateUrl: './app.component.html', ENTODO INFRASTRUCTURE LO USE PARA MOSTRARLO EN LA PANTALLA
-  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'frontend';

@@ -27,11 +27,10 @@ mat-card img {
 
 
 mat-card {
-  padding: 16px;=
-box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* Button styling */
 mat-card-actions {
   display: flex;
   justify-content: flex-end;
