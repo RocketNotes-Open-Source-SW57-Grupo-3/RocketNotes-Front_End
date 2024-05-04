@@ -56,7 +56,7 @@
   <mat-sidenav-container class="navbar-sidenav-container">
     <!-- Side nav -->
     <mat-sidenav #snav [opened]="!mobileQuery.matches" [mode]="mobileQuery.matches ? 'over' : 'side'"
-      [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" class="sidenav">
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" class="sidenav">
 
       <mat-nav-list>
         <h3 mat-subheader>PRINCIPAL</h3>
@@ -86,16 +86,18 @@
           <p mat-line> Account </p>
         </a>
 
+
         <a mat-list-item [routerLink]="['/account/profile']">
           <mat-icon mat-list-icon>Classroom setup</mat-icon>
           <p mat-line> Students </p>
+
+        <a mat-list-item [routerLink]="['/students']">
+          <mat-icon mat-list-icon>Classroom setup</mat-icon>
+          <p mat-line> Students </p>
         </a>
-        <a mat-list-item [routerLink]="['/account/profile']">
+        <a mat-list-item [routerLink]="['/teachers']">
           <mat-icon mat-list-icon>Teachers</mat-icon>
           <p mat-line> Teachers </p>
-        </a>
-
-
 
         <mat-divider style="padding-top: 20px; border-color: transparent"></mat-divider>
 

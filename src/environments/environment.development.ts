@@ -3,3 +3,4 @@ export const environmentDevelopment = {
     serverBasePath: 'http://localhost:3000'
 
 };
+

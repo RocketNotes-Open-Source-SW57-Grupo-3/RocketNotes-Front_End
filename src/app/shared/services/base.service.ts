@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
+
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {environmentDevelopment} from "../../../environments/environment.development";
-import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
-import {catchError, retry} from "rxjs";
+import {catchError, Observable, retry, throwError} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-export class BaseService {
+
+export class BaseService <T>{
   basePath: string= `${environmentDevelopment.serverBasePath}`;
+  resourceEndpoint: string='/resources';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -16,17 +19,29 @@ export class BaseService {
   }
   constructor(private http: HttpClient) { }
 
+  handleError(error: HttpErrorResponse){
+    if(error.error instanceof ErrorEvent){
+      console.log(`An error ocurred ${error.error.message}`);
+    } else{
+      console.log(`Backend returned code ${error.status}, body was ${error}`);
+    }
+    return throwError(()=>new Error('Something happened with request. Please try again later.'))
+  }
+
   private resourcePath():string{
-    return `${this.basePath}`
+    return `${this.basePath}${this.resourceEndpoint}`
   }
 
 
-  get(url:string ){
-    return this.http.get(this.resourcePath()+`${url}`)
+  get(){
+    return this.http.get(this.resourcePath())
   }
 
-  create(item: any){
-    return this.http.post(this.resourcePath(),
+  create(item: any): Observable<T>{
+    return this.http.post<T>(this.resourcePath(),
         JSON.stringify(item), this.httpOptions)
+        .pipe(retry(2),catchError(this.handleError))
   }
 }
+
+

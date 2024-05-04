@@ -1,3 +1,15 @@
+
+
+
+.h1{
+  color:black;
+
+}
+.mat-toolbar{
+
+  background-color: #d3d3d3;
+}
+
 .navbar-spacer {
   flex: 1 1 auto;
 }
@@ -8,7 +20,7 @@
 
 .navbar-brand {
   text-decoration: none;
-  color: white;
+  color: #000000;
 }
 
 .navbar-container {
@@ -55,10 +67,15 @@ mat-sidenav {
 }
 
 a.mat-list-item.active {
-  background: rgba(0, 0, 0, .04);
+  background-color: #1EC089;
+  color: white;
+  border-radius: 10px;
 }
 
 #push-bottom {
+
   position: absolute;
   bottom: 0;
 }
+
+

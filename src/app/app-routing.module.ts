@@ -8,10 +8,22 @@ const appRoutes: Routes = [
     path: 'auth',
     loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule),
   },
+
   {
-    path: 'dashboard',
-    loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule),
+    path: 'classrooms',
+    loadChildren: () => import('./features/classrooms/classrooms.module').then(m => m.ClassroomsModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'teachers',
+    loadChildren:() => import('./features/teacher/teacher.module').then(m => m.TeacherModule),
+    canActivate: [AuthGuard]
+
+  },
+  {
+    path:'students',
+    loadChildren:() => import('./features/student/student.module').then(m=>m.StudentModule),
+    canActivate:[AuthGuard]
   },
   {
     path:'facilities-list',
@@ -38,11 +50,7 @@ const appRoutes: Routes = [
     loadChildren: () => import('./features/account/account.module').then(m => m.AccountModule),
     canActivate: [AuthGuard]
   },
-  {
-    path: 'icons',
-    loadChildren: () => import('./features/icons/icons.module').then(m => m.IconsModule),
-    canActivate: [AuthGuard]
-  },
+
   {
     path: 'typography',
     loadChildren: () => import('./features/typography/typography.module').then(m => m.TypographyModule),
@@ -55,9 +63,10 @@ const appRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'dashboard',
+    redirectTo: 'classrooms',
     pathMatch: 'full'
-  }
+  },
+
 ];
 
 @NgModule({
