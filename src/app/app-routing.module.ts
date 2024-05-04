@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {ClassroomCapacityComponent} from "./infrastructure/pages/classroom-capacity/classroom-capacity.component";
+import {ClassroomStudentsComponent} from "./infrastructure/pages/classroom-students/classroom-students.component";
+import {ClassroomCoursesComponent} from "./infrastructure/pages/classroom-courses/classroom-courses.component";
+import {CoursesViewComponent} from "./infrastructure/pages/courses-view/courses-view.component";
+
 
 import { AuthGuard } from './core/guards/auth.guard';
 
@@ -66,6 +71,10 @@ const appRoutes: Routes = [
     redirectTo: 'classrooms',
     pathMatch: 'full'
   },
+  {path:'capacity', component: ClassroomCapacityComponent},
+  {path:'students', component: ClassroomStudentsComponent},
+  {path:'classrooms', component: ClassroomCoursesComponent},
+  {path:'courses', component: CoursesViewComponent},
 
 ];
 
