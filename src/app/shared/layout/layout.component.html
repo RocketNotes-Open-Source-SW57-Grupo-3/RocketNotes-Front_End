@@ -39,7 +39,7 @@
     </button>
     <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
 
-      <a mat-menu-item [routerLink]="['/account/profile']">
+      <a mat-menu-item [routerLink]="['/account/profile']" routerLinkActive="active" >
         <mat-icon>person</mat-icon>
         <span>Account</span>
       </a>
@@ -59,11 +59,19 @@
       [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" class="sidenav">
 
       <mat-nav-list>
+<<<<<<< Updated upstream
         <h3 mat-subheader>Home</h3>
+=======
+        <h3 mat-subheader>Principal</h3>
+>>>>>>> Stashed changes
 
-        <a mat-list-item [routerLink]="['/dashboard']" routerLinkActive="active">
+        <a mat-list-item [routerLink]="['/classrooms']" routerLinkActive="active">
           <mat-icon mat-list-icon>
+<<<<<<< Updated upstream
             dashboard
+=======
+            Classrooms
+>>>>>>> Stashed changes
           </mat-icon>
           <p mat-line> Dashboard </p>
         </a>
@@ -81,18 +89,22 @@
           <p mat-line> Users </p>
         </a>
 
-        <a mat-list-item [routerLink]="['/account/profile']">
+        <a mat-list-item [routerLink]="['/account/profile']" routerLinkActive="active">
           <mat-icon mat-list-icon>person</mat-icon>
           <p mat-line> Account </p>
         </a>
 
+<<<<<<< Updated upstream
         <a mat-list-item [routerLink]="['/auth/login']">
           <mat-icon mat-list-icon>exit_to_app</mat-icon>
           <p mat-line> Log out </p>
         </a>
+=======
+>>>>>>> Stashed changes
 
         <mat-divider></mat-divider>
 
+<<<<<<< Updated upstream
         <h3 mat-subheader>Resources</h3>
 
         <a mat-list-item [routerLink]="['/icons']" routerLinkActive="active">
@@ -121,6 +133,17 @@
           </mat-icon>
           <p mat-line> About </p>
         </a>
+=======
+        <mat-divider></mat-divider>
+
+        <h3 mat-subheader>Preferences</h3>
+          <div class="logout-link">
+              <a mat-list-item [routerLink]="['/auth/login']">
+                  <mat-icon mat-list-icon>exit_to_app</mat-icon>
+                  <p mat-line> Log out </p>
+              </a>
+          </div>
+>>>>>>> Stashed changes
       </mat-nav-list>
 
     </mat-sidenav>

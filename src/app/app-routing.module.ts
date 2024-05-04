@@ -9,8 +9,8 @@ const appRoutes: Routes = [
     loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule),
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule),
+    path: 'classrooms',
+    loadChildren: () => import('./features/classrooms/classrooms.module').then(m => m.ClassroomsModule),
     canActivate: [AuthGuard]
   },
   {
@@ -28,11 +28,7 @@ const appRoutes: Routes = [
     loadChildren: () => import('./features/account/account.module').then(m => m.AccountModule),
     canActivate: [AuthGuard]
   },
-  {
-    path: 'icons',
-    loadChildren: () => import('./features/icons/icons.module').then(m => m.IconsModule),
-    canActivate: [AuthGuard]
-  },
+
   {
     path: 'typography',
     loadChildren: () => import('./features/typography/typography.module').then(m => m.TypographyModule),
@@ -45,9 +41,14 @@ const appRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'dashboard',
+    redirectTo: 'classrooms',
     pathMatch: 'full'
+<<<<<<< Updated upstream
   }
+=======
+  },
+
+>>>>>>> Stashed changes
 ];
 
 @NgModule({
