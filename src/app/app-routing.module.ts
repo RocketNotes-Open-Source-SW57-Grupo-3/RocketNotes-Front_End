@@ -8,10 +8,17 @@ const appRoutes: Routes = [
     path: 'auth',
     loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule),
   },
+
   {
     path: 'dashboard',
     loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'teachers',
+    loadChildren:() => import('./features/teacher/teacher.module').then(m => m.TeacherModule),
+    canActivate: [AuthGuard]
+
   },
   {
     path:'students',

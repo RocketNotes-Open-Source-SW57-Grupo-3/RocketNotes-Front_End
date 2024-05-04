@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TeachersComponent } from './teachers/teachers.component';
 import {MatIconModule} from "@angular/material/icon";
 import {MatTableModule} from "@angular/material/table";
+import {TeacherRoutingModule} from "./teacher-routing.module";
 
 
 
@@ -13,7 +14,8 @@ import {MatTableModule} from "@angular/material/table";
     imports: [
         CommonModule,
         MatIconModule,
-        MatTableModule
+        MatTableModule,
+        TeacherRoutingModule
     ]
 })
 export class TeacherModule { }

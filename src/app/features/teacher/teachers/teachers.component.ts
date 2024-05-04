@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {StudentsService} from "../../student/service/students.service";
 import {MatDialog} from "@angular/material/dialog";
-import {DialogStudentComponent} from "../../student/dialog-student/dialog-student.component";
 export interface Student {
   studentId: string;
   name: string;
@@ -38,32 +37,7 @@ export class TeachersComponent implements OnInit {
   onDeleteItem(object: any){
 
   }
-  openDialog(){
-    const dialogRef= this.dialog.open(DialogStudentComponent,{
-      width: '600px',
-      data:{
-        name:this.student.name,
-        studentCode: this.student.studentCode,
-        status : 'Enrolled',
 
-      }
-    });
-    dialogRef.afterClosed().subscribe(result=>{
-      console.log('The dialog was closed');
-      let student1 ={
-        name:result.name+" "+result.maternal+" "+result.paternal,
-        studentCode:result.studentCode,
-        enrollmentStatus: "Enrolled",
-      }
-      console.log(student1)
-      this.apiStudent.create(student1).subscribe({
-            next:(response:any)=>{
-              console.log(response);
-            }
-          }
-      )
-    })
-  }
 
 
 }
