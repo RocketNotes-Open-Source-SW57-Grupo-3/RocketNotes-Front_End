@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Course} from "../../model/course.entity";
-import {CoursesService} from "../../services/courses.service";
-import {ClassroomCreateFormComponent} from "../../components/classroom-create-form/classroom-create-form.component";
+import {CoursesService} from "../../services/courses.service"
 import {MatDialog} from "@angular/material/dialog";
 import {CourseCreateFormComponent} from "../../components/course-create-form/course-create-form.component";
 
