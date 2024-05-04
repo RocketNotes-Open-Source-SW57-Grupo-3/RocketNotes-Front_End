@@ -1,5 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
+
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule} from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -8,6 +10,7 @@ import { CustomMaterialModule } from './custom-material/custom-material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { LoggerModule } from 'ngx-logger';
 import { environment } from '../environments/environment';
+
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
@@ -25,7 +28,7 @@ import {ClassroomStudentsComponent} from "./infrastructure/pages/classroom-stude
 import { ClassroomCoursesComponent } from './infrastructure/pages/classroom-courses/classroom-courses.component';
 import { CoursesViewComponent} from "./infrastructure/pages/courses-view/courses-view.component";
 import { CourseCreateFormComponent } from './infrastructure/components/course-create-form/course-create-form.component';
-import {HttpClientModule} from "@angular/common/http";
+
 
 @NgModule({
   declarations: [
@@ -66,6 +69,7 @@ import {HttpClientModule} from "@angular/common/http";
       serverLogLevel: environment.serverLogLevel
     })
   ],
+  providers: [ provideAnimationsAsync()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

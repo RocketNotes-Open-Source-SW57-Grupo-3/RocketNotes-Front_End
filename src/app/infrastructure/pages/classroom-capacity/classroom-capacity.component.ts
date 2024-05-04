@@ -18,8 +18,10 @@ export class ClassroomCapacityComponent implements OnInit {
   constructor(private classroomService: ClassroomsService, public dialog: MatDialog,private router: Router) {}
 
   ngOnInit() {
+
     this.classroomService.get().subscribe({
       next: (data: any) => {
+
         this.dataSource = data;
       },
       error: (err) => console.error(err)
