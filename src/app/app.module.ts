@@ -69,7 +69,6 @@ import { CourseCreateFormComponent } from './infrastructure/components/course-cr
       serverLogLevel: environment.serverLogLevel
     })
   ],
-  providers: [ provideAnimationsAsync()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

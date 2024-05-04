@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   template: `<router-outlet></router-outlet>`,
 
   //templateUrl: './app.component.html', ENTODO INFRASTRUCTURE LO USE PARA MOSTRARLO EN LA PANTALLA
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'frontend';
