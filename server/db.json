@@ -1,45 +1,181 @@
 {
-
   "facilities": [
     {
-      "equipmentId": 1,
-      "name": "student computers",
-      "quantity": 25,
-      "budget": 25,
-      "creation": "April 20,2025",
-      "period": "6 months",
+      "name": "Community Hall",
+      "description": "installation of new lighting and sound systems",
+      "budget": "1500",
+      "creation": "April 25, 2025",
+      "period": "8 months",
+      "state": "Planned"
+    },
+    {
+      "name": "Library Conference Room",
+      "description": "refurbishment with new bookshelves and multimedia equipment",
+      "budget": "1200",
+      "creation": "May 1, 2025",
+      "period": "5 months",
       "state": "In progress"
     },
     {
-      "equipmentId": 2,
-      "name": "student computers",
-      "quantity": 25,
-      "budget": 25,
-      "creation": "April 20,2025",
-      "period": "6 months",
+      "name": "School Gymnasium",
+      "description": "new flooring and basketball hoops",
+      "budget": "2000",
+      "creation": "April 30, 2025",
+      "period": "7 months",
       "state": "In progress"
+    },
+    {
+      "name": "Town Museum Lobby",
+      "description": "modern art installations and interactive displays",
+      "budget": "1800",
+      "creation": "June 10, 2025",
+      "period": "4 months",
+      "state": "Planned"
+    },
+    {
+      "name": "City Park Pavilion",
+      "description": "new picnic tables and landscaping",
+      "budget": "1000",
+      "creation": "July 5, 2025",
+      "period": "3 months",
+      "state": "Planned"
+    },
+    {
+      "name": "Downtown Art Studio",
+      "description": "renovation for artist workshops and public galleries",
+      "budget": "2200",
+      "creation": "August 15, 2025",
+      "period": "9 months",
+      "state": "In progress"
+    },
+    {
+      "name": "University Auditorium",
+      "description": "seating upgrade and new stage design",
+      "budget": "2500",
+      "creation": "September 1, 2025",
+      "period": "6 months",
+      "state": "Planned"
+    },
+    {
+      "name": "Local Theater",
+      "description": "soundproofing and modern lighting systems",
+      "budget": "3000",
+      "creation": "October 20, 2025",
+      "period": "10 months",
+      "state": "In progress"
+    },
+    {
+      "name": "Health Clinic Waiting Area",
+      "description": "children's play area and comfortable seating",
+      "budget": "850",
+      "creation": "November 1, 2025",
+      "period": "2 months",
+      "state": "Planned"
+    },
+    {
+      "name": "Sports Complex Reception",
+      "description": "interactive information kiosk and trophy displays",
+      "budget": "1600",
+      "creation": "December 10, 2025",
+      "period": "5 months",
+      "state": "In progress"
+    }
+
+  ],
+  "equipments": [
+
+    {
+      "equipmentId": 2,
+      "name": "teacher laptops",
+      "quantity": 10,
+      "budget": 2000,
+      "creation": "April 22, 2025",
+      "period": "12 months",
+      "state": "Planned"
     },
     {
       "equipmentId": 3,
-      "name": "student computers",
-      "quantity": 25,
-      "budget": 25,
-      "creation": "April 20,2025",
-      "period": "6 months",
+      "name": "library e-readers",
+      "quantity": 30,
+      "budget": 1500,
+      "creation": "May 1, 2025",
+      "period": "9 months",
       "state": "In progress"
     },
     {
       "equipmentId": 4,
-      "name": "student computers",
-      "quantity": 25,
-      "budget": 25,
-      "creation": "April 20,2025",
+      "name": "science lab kits",
+      "quantity": 15,
+      "budget": 3000,
+      "creation": "May 15, 2025",
       "period": "6 months",
+      "state": "Planned"
+    },
+    {
+      "equipmentId": 5,
+      "name": "math manipulatives",
+      "quantity": 50,
+      "budget": 500,
+      "creation": "June 20, 2025",
+      "period": "3 months",
+      "state": "In progress"
+    },
+    {
+      "equipmentId": 6,
+      "name": "musical instruments",
+      "quantity": 20,
+      "budget": 4000,
+      "creation": "July 10, 2025",
+      "period": "8 months",
+      "state": "Planned"
+    },
+    {
+      "equipmentId": 7,
+      "name": "physical education gear",
+      "quantity": 40,
+      "budget": 800,
+      "creation": "August 5, 2025",
+      "period": "5 months",
+      "state": "In progress"
+    },
+    {
+      "equipmentId": 8,
+      "name": "art supplies",
+      "quantity": 60,
+      "budget": 1200,
+      "creation": "September 1, 2025",
+      "period": "4 months",
+      "state": "Planned"
+    },
+    {
+      "equipmentId": 9,
+      "name": "history visual aids",
+      "quantity": 25,
+      "budget": 700,
+      "creation": "October 20, 2025",
+      "period": "7 months",
+      "state": "In progress"
+    },
+    {
+      "equipmentId": 10,
+      "name": "language learning software",
+      "quantity": 30,
+      "budget": 1000,
+      "creation": "November 15, 2025",
+      "period": "10 months",
+      "state": "Planned"
+    },
+    {
+      "equipmentId": 11,
+      "name": "robotics kits",
+      "quantity": 12,
+      "budget": 2500,
+      "creation": "December 10, 2025",
+      "period": "12 months",
       "state": "In progress"
     }
 
-  ]
-},
+  ],
   "students": [
     {
       "studentId": 1,
@@ -103,3 +239,5 @@
     }
   ]
 }
+
+

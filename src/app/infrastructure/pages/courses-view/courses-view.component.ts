@@ -8,7 +8,7 @@ import {CourseCreateFormComponent} from "../../components/course-create-form/cou
 @Component({
   selector: 'app-courses-view',
   templateUrl: './courses-view.component.html',
-  styleUrl: './courses-view.component.css'
+  styleUrls: ['./courses-view.component.css']
 })
 export class CoursesViewComponent implements OnInit {
   courses: Course[] = [];
@@ -18,8 +18,8 @@ export class CoursesViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.courseService.getAll().subscribe({
-      next: (data) => {
+    this.courseService.get().subscribe({
+      next: (data:any ) => {
         this.courses = data;
       },
       error: (err) => console.error(err)
