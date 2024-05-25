@@ -40,7 +40,6 @@ export class ClassroomGradesComponent  {
         { name:'EstudianteU202218475', grades: [20, 15, 18], average: 0, state: '' },
         { name:'EstudianteU202218476', grades: [10, 10, 16], average: 0, state: '' },
         { name:'EstudianteU202218477', grades: [11, 14, 13], average: 0, state: '' },
-        // ...
     ];
 
     calculateAverage(grades: number[]): number {

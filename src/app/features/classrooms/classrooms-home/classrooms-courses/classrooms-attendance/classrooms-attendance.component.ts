@@ -69,7 +69,7 @@ export class ClassroomsAttendanceComponent implements OnInit  {
     }
 
     saveAssistance(): void {
-        // Guarda los datos en LocalStorage.
+
         localStorage.setItem('students', JSON.stringify(this.students));
 
         // Navega de vuelta a la vista de asistencia de aula.
