@@ -1,6 +1,5 @@
-import { Component,OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import {GradeDialogComponent} from "./grade-dialog.component";
 @Component({
     selector: 'app-root',
@@ -15,7 +14,6 @@ export class ClassroomGradesComponent  {
 
     constructor(
         public dialog: MatDialog,
-        private router: Router,
         // ...
     ) {}
 
@@ -31,7 +29,6 @@ export class ClassroomGradesComponent  {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
-            // Aquí puedes manejar lo que sucede después de que se cierra el diálogo.
         });
     }
 
