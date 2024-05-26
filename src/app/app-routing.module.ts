@@ -43,14 +43,9 @@ const appRoutes: Routes = [
     path: '**',
     redirectTo: 'classrooms',
     pathMatch: 'full'
-<<<<<<< Updated upstream
+
   }
-=======
-  },
-
->>>>>>> Stashed changes
 ];
-
 @NgModule({
   imports: [
     RouterModule.forRoot(appRoutes)
