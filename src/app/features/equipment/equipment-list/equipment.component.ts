@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {ButtonStateService} from "../../maintenance/ButtonStateService";
 import {BaseService} from "../../../shared/services/base.service";
 import {EquipmentService} from "../services/equipment.service";
+import {DialogStudentComponent} from "../../student/dialog-student/dialog-student.component";
+import {EquipmentDialogComponent} from "../equipment-dialog/equipment-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 export interface Equipment {
   equipmentId: string;
@@ -20,10 +23,11 @@ export interface Equipment {
 })
 
 export class EquipmentComponent implements OnInit {
-  displayedColumns: string[] = ['equipmentId','name','quantity','budget','creation','period','state']
+  displayedColumns: string[] = ['id','name','quantity','budget','creation','period','state']
 
   dataSource: Equipment[] = [];
-  constructor(private buttonStateService: ButtonStateService, private apiService: EquipmentService) { }
+  equipment: any={}
+  constructor(private buttonStateService: ButtonStateService, private apiService: EquipmentService,public dialog: MatDialog) { }
 
 
   ngOnInit(): void {
@@ -37,6 +41,40 @@ export class EquipmentComponent implements OnInit {
   }
   onEditItem(object: any){
 
+  }
+  openDialog(){
+    const dialogRef= this.dialog.open(EquipmentDialogComponent,{
+      width: '600px',
+      data:{
+        name:this.equipment.name,
+        quantity: this.equipment.quantity,
+        creation: this.equipment.creation,
+        budget: this.equipment.budget,
+        state : this.equipment.state,
+        period: this.equipment.period
+
+      }
+    });
+    dialogRef.afterClosed().subscribe(result=>{
+      if(result.name!=null){
+        let equipment1 ={
+          name:result.name,
+          quantity:result.quantity,
+          budget:result.budget,
+          creation:result.creation,
+          period:result.period,
+          state: result.state,
+        }
+        this.apiService.create(equipment1).subscribe({
+              next:(response:any)=>{
+                console.log(response);
+              }
+            }
+        )
+
+      }
+
+    })
   }
 
 }

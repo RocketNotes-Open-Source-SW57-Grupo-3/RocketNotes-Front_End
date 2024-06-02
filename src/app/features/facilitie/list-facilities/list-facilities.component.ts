@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ButtonStateService} from "../../maintenance/ButtonStateService";
 import {FacilitieService} from "../service/facilitie.service";
+import {DialogFacilitieComponent} from "../dialog-facilitie/dialog-facilitie.component";
+import {MatDialog} from "@angular/material/dialog";
 
 
 export interface Facilitie {
@@ -18,10 +20,11 @@ export interface Facilitie {
   styleUrls: ['./list-facilities.component.css']
 })
 export class ListFacilitiesComponent implements OnInit {
-  displayedColumns: string[] = ['name','description','budget','creation','period','state']
+  displayedColumns: string[] = ['id','name','description','budget','creation','period','state']
 
   dataSource: Facilitie[] = [];
-  constructor(private buttonStateService: ButtonStateService, private apiService: FacilitieService) { }
+  facilitie: any={}
+  constructor(private buttonStateService: ButtonStateService, private apiService: FacilitieService,public dialog: MatDialog) { }
 
 
   ngOnInit(): void {
@@ -36,5 +39,40 @@ export class ListFacilitiesComponent implements OnInit {
   onEditItem(object: any){
 
   }
+  openDialog(){
+    const dialogRef= this.dialog.open(DialogFacilitieComponent,{
+      width: '600px',
+      data:{
+        name:this.facilitie.name,
+        description: this.facilitie.description,
+        budget: this.facilitie.budget,
+        creation: this.facilitie.creation,
+        period: this.facilitie.period,
+        state : this.facilitie.state
+
+      }
+    });
+    dialogRef.afterClosed().subscribe(result=>{
+      if(result.name!=null){
+        let facilite1 ={
+          name:result.name,
+          description:result.description,
+          budget:result.budget,
+          creation:result.creation,
+          period:result.period,
+          state: result.state
+        }
+        this.apiService.create(facilite1).subscribe({
+              next:(response:any)=>{
+                console.log(response);
+              }
+            }
+        )
+
+      }
+
+    })
+  }
+
 
 }

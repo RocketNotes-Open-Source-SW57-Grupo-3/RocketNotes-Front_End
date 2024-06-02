@@ -1,12 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 export interface Student{
-studentId: string;
-name: string,
-studentCode: string;
-status: string;
-paternal: string;
-maternal: string;
+name: string
+studentCode: string
+status: string
+paternal: string
+maternal: string
 
 
 }
@@ -25,7 +24,7 @@ export class DialogStudentComponent implements OnInit {
     this.dialogRef.close();
   }
   ngOnInit(): void {
-    console.log("a")
+    console.log("")
   }
 
 }
