@@ -16,14 +16,14 @@ export class ClassroomsAttendanceComponent implements OnInit  {
     constructor(
         public dialog: MatDialog,
         private router: Router,
-        // ...
+
     ) {}
 
 
 
     ngOnInit() {
-        // Recupera los datos de LocalStorage.
-        const storedStudents = localStorage.getItem('students');
+
+        const storedStudents = localStorage.getItem('attendanceStudents');
         if (storedStudents) {
             this.students = JSON.parse(storedStudents);
         } else {
@@ -58,7 +58,6 @@ export class ClassroomsAttendanceComponent implements OnInit  {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
-            // Aquí puedes manejar lo que sucede después de que se cierra el diálogo.
         });
     }
 
@@ -69,22 +68,21 @@ export class ClassroomsAttendanceComponent implements OnInit  {
     }
 
     saveAssistance(): void {
-        // Guarda los datos en LocalStorage.
-        localStorage.setItem('students', JSON.stringify(this.students));
 
-        // Navega de vuelta a la vista de asistencia de aula.
+        localStorage.setItem('attendanceStudents', JSON.stringify(this.students));
+
+
         this.router.navigate(['/classrooms/courses/attendance']);
         this.isAssistanceTaken = false;
     }
 
     deleteAssistance(date: string): void {
-        // Filtra la asistencia de cada estudiante para eliminar la entrada con la fecha dada.
+
         this.students.forEach(student => {
             student.attendance = student.attendance.filter(attendance => attendance.date !== date);
         });
 
-        // Guarda los datos actualizados en LocalStorage.
-        localStorage.setItem('students', JSON.stringify(this.students));
+        localStorage.setItem('attendanceStudents', JSON.stringify(this.students));
     }
 
 }
