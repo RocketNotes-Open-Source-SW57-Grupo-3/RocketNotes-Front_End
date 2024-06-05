@@ -35,4 +35,3 @@ export class GradeDialogComponent {
         this.dialogRef.close();
     }
 }
-
