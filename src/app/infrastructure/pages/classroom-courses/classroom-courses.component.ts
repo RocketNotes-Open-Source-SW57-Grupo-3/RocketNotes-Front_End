@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Classroom} from "../../model/classroom.entity";
 import {ClassroomsService} from "../../services/classrooms.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-classroom-courses',
@@ -13,7 +14,7 @@ export class ClassroomCoursesComponent implements OnInit {
   classrooms: Classroom[] = [];
   displayedColumns: string[] = ['id', 'section', 'classroom', 'enrolled_students', 'addStudent'];
 
-  constructor(private classroomService: ClassroomsService) {}
+  constructor(private classroomService: ClassroomsService,private router: Router) {}
 
   ngOnInit() {
     this.classroomService.get().subscribe({
@@ -25,5 +26,8 @@ export class ClassroomCoursesComponent implements OnInit {
     });
   }
 
+  goToCoursesView() {
+    this.router.navigate(['classroom-courses/courses-view']);
+  }
 
 }
