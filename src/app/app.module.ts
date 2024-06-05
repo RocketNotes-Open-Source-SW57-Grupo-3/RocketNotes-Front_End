@@ -30,17 +30,17 @@ import { CoursesViewComponent} from "./infrastructure/pages/courses-view/courses
 import { CourseCreateFormComponent } from './infrastructure/components/course-create-form/course-create-form.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 import {MatRadioModule} from "@angular/material/radio";
+import { CourseDetailComponent } from './infrastructure/pages/course-detail/course-detail.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ClassroomCapacityComponent,
     ClassroomCreateFormComponent,
     ClassroomStudentsComponent,
-    ClassroomCoursesComponent,
     CoursesViewComponent,
     CourseCreateFormComponent,
+    CourseDetailComponent,
     RegisterComponent,
 
   ],

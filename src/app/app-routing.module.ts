@@ -26,6 +26,18 @@ const appRoutes: Routes = [
 
   },
   {
+    path: 'classroom-capacity',
+    loadChildren:() => import('./infrastructure/pages/classroom-capacity/classroom-capacity.module').then(m => m.ClassroomCapacityModule),
+    canActivate: [AuthGuard]
+
+  },
+  {
+    path: 'classroom-courses',
+    loadChildren:() => import('./infrastructure/pages/classroom-courses/classroom-courses.module').then(m => m.ClassroomCoursesModule),
+    canActivate: [AuthGuard]
+
+  },
+  {
     path:'students',
     loadChildren:() => import('./features/student/student.module').then(m=>m.StudentModule),
     canActivate:[AuthGuard]
