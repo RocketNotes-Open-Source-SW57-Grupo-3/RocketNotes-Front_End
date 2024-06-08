@@ -16,7 +16,7 @@ export interface Student {
   styleUrls: ['./student-list.component.css']
 })
 export class StudentListComponent implements OnInit {
-  displayedColumns: string[] = ['equipmentId','name','studentCode','status','action']
+  displayedColumns: string[] = ['id','name','studentCode','status','action']
 
   dataSource: Student[] = [];
   student: any={}
@@ -47,19 +47,21 @@ export class StudentListComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result=>{
-      console.log('The dialog was closed');
-      let student1 ={
-        name:result.name+" "+result.maternal+" "+result.paternal,
-        studentCode:result.studentCode,
-        enrollmentStatus: "Enrolled",
-      }
-      console.log(student1)
-      this.apiStudent.create(student1).subscribe({
-            next:(response:any)=>{
-              console.log(response);
+      if(result.name!=null){
+        let student1 ={
+          name:result.name+" "+result.maternal+" "+result.paternal,
+          studentCode:result.studentCode,
+          enrollmentStatus: "Enrolled",
+        }
+        this.apiStudent.create(student1).subscribe({
+              next:(response:any)=>{
+                console.log(response);
+              }
             }
-          }
-      )
+        )
+
+      }
+
     })
   }
 

@@ -32,6 +32,14 @@ mat-form-field.full-width {
     margin-bottom: 16px;
 }
 
+.role-selection {
+    margin-bottom: 16px;
+}
+
+.role-selection mat-radio-button {
+    margin-right: 16px;
+}
+
 mat-icon {
     cursor: pointer;
 }

@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 
 import { NotificationService } from 'src/app/core/services/notification.service';
@@ -13,42 +13,41 @@ import { AuthenticationService } from 'src/app/core/services/auth.service';
 })
 export class PasswordResetRequestComponent implements OnInit {
 
-  private email!: string;
-  form!: UntypedFormGroup;
-  loading!: boolean;
+  form!: FormGroup;
+  loading = false;
 
-  constructor(private authService: AuthenticationService,
-    private notificationService: NotificationService,
-    private titleService: Title,
-    private router: Router) { }
+  hidePassword = true;
+  hidePasswordConfirm = true;
+
+  constructor(
+      private authService: AuthenticationService,
+      private notificationService: NotificationService,
+      private titleService: Title,
+      private router: Router
+  ) { }
 
   ngOnInit() {
-    this.titleService.setTitle('angular-material-template - Password Reset Request');
+    this.titleService.setTitle('RocketNotes - Password Reset Request');
 
-    this.form = new UntypedFormGroup({
-      email: new UntypedFormControl('', [Validators.required, Validators.email])
+    this.form = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      confirmPassword: new FormControl('', [Validators.required])
     });
-
-    this.form.get('email')?.valueChanges
-      .subscribe((val: string) => { this.email = val.toLowerCase(); });
   }
 
   resetPassword() {
-    this.loading = true;
-    this.authService.passwordResetRequest(this.email)
-      .subscribe(
-        results => {
-          this.router.navigate(['/auth/login']);
-          this.notificationService.openSnackBar('Password verification mail has been sent to your email address.');
-        },
-        error => {
-          this.loading = false;
-          this.notificationService.openSnackBar(error.error);
-        }
-      );
+    if (this.form.valid) {
+      this.loading = true;
+      // Aquí iría la lógica para realizar el cambio de contraseña en el futuro
+      console.log('Form value:', this.form.value);
+      this.router.navigate(['/auth/login']);
+      this.notificationService.openSnackBar('This is a placeholder for password reset.');
+      this.loading = false;
+    }
   }
 
   cancel() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/auth/login']);
   }
 }

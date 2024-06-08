@@ -4,12 +4,14 @@ import { ListFacilitiesComponent } from './list-facilities/list-facilities.compo
 import {SharedModule} from "../../shared/shared.module";
 import {FacilitieRoutingModule} from "./facilitie-routing.module";
 import {FacilitiesModule} from "../maintenance/facilities.module";
+import { DialogFacilitieComponent } from './dialog-facilitie/dialog-facilitie.component';
 
 
 
 @NgModule({
   declarations: [
-    ListFacilitiesComponent
+    ListFacilitiesComponent,
+    DialogFacilitieComponent
   ],
   imports: [
     CommonModule,

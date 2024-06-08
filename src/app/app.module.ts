@@ -28,6 +28,8 @@ import {ClassroomStudentsComponent} from "./infrastructure/pages/classroom-stude
 import { ClassroomCoursesComponent } from './infrastructure/pages/classroom-courses/classroom-courses.component';
 import { CoursesViewComponent} from "./infrastructure/pages/courses-view/courses-view.component";
 import { CourseCreateFormComponent } from './infrastructure/components/course-create-form/course-create-form.component';
+import { RegisterComponent } from './features/auth/register/register.component';
+import {MatRadioModule} from "@angular/material/radio";
 
 
 @NgModule({
@@ -39,6 +41,7 @@ import { CourseCreateFormComponent } from './infrastructure/components/course-cr
     ClassroomCoursesComponent,
     CoursesViewComponent,
     CourseCreateFormComponent,
+    RegisterComponent,
 
   ],
 
@@ -67,7 +70,8 @@ import { CourseCreateFormComponent } from './infrastructure/components/course-cr
       serverLoggingUrl: `http://my-api/logs`,
       level: environment.logLevel,
       serverLogLevel: environment.serverLogLevel
-    })
+    }),
+    MatRadioModule
   ],
   bootstrap: [AppComponent]
 })
