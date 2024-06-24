@@ -7,13 +7,13 @@ import {EquipmentDialogComponent} from "../equipment-dialog/equipment-dialog.com
 import {MatDialog} from "@angular/material/dialog";
 
 export interface Equipment {
-  equipmentId: string;
+  id: string;
   name: string;
-  quantity: string;
-  budget: string;
+  quantity: bigint;
+  budget: bigint;
   creation: string;
   period: string;
-  state: string;
+  status: string;
 }
 
 @Component({
@@ -23,7 +23,7 @@ export interface Equipment {
 })
 
 export class EquipmentComponent implements OnInit {
-  displayedColumns: string[] = ['id','name','quantity','budget','creation','period','state']
+  displayedColumns: string[] = ['id','name','quantity','budget','creation','period','status']
 
   dataSource: Equipment[] = [];
   equipment: any={}
@@ -50,8 +50,8 @@ export class EquipmentComponent implements OnInit {
         quantity: this.equipment.quantity,
         creation: this.equipment.creation,
         budget: this.equipment.budget,
-        state : this.equipment.state,
-        period: this.equipment.period
+        period: this.equipment.period,
+        status : this.equipment.status
 
       }
     });
@@ -63,7 +63,7 @@ export class EquipmentComponent implements OnInit {
           budget:result.budget,
           creation:result.creation,
           period:result.period,
-          state: result.state,
+          status: result.status,
         }
         this.apiService.create(equipment1).subscribe({
               next:(response:any)=>{
