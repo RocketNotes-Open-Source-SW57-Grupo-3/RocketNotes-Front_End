@@ -1,39 +1,49 @@
-<h1 mat-dialog-title>Hi </h1>
+<h1 mat-dialog-title>Hi</h1>
 <div mat-dialog-content>
     <ul>
         <li>
-            <p>Name</p>
+            <p>First Name</p>
             <mat-form-field>
-                <input matInput [(ngModel)]="data.name">
+                <input matInput [(ngModel)]="data.firstName">
             </mat-form-field>
         </li>
         <li>
-            <p>Maternal Last Name</p>
+            <p>Paternal Last Name</p>
             <mat-form-field>
-                <input matInput [(ngModel)]="data.paternal">
+                <input matInput [(ngModel)]="data.paternalLastName">
             </mat-form-field>
         </li>
     </ul>
     <ul>
         <li>
-            <p> Paternal Last Name</p>
+            <p>Maternal Last Name</p>
             <mat-form-field>
-                <input matInput [(ngModel)]="data.maternal">
+                <input matInput [(ngModel)]="data.maternalLastName">
             </mat-form-field>
         </li>
         <li>
-            <p>Student Code</p>
+            <p>DNI</p>
             <mat-form-field>
-                <input matInput [(ngModel)]="data.address">
+                <input matInput [(ngModel)]="data.dni">
             </mat-form-field>
         </li>
     </ul>
-
-
-
-
+    <ul>
+        <li>
+            <p>Phone</p>
+            <mat-form-field>
+                <input matInput [(ngModel)]="data.phone">
+            </mat-form-field>
+        </li>
+        <li>
+            <p>Email</p>
+            <mat-form-field>
+                <input matInput [(ngModel)]="data.email">
+            </mat-form-field>
+        </li>
+    </ul>
 </div>
 <div mat-dialog-actions class="actions">
     <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [mat-dialog-close]="data" >Add</button>
+    <button mat-button [mat-dialog-close]="data" >Save</button>
 </div>

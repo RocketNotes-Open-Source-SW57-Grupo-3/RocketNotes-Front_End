@@ -34,30 +34,17 @@ ngOnInit(): void {
   });
 }
 
-onEditItem(student: Student): void {
+onEditItem(element: Student) {
   const dialogRef = this.dialog.open(DialogStudentComponent, {
     width: '600px',
-    data: student  // Pasar el estudiante a editar
+    data: { ...element, isEdit: true }
   });
 
   dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      this.apiStudent.update(result.id, result).subscribe({
-        next: (response: any) => {
-          console.log(response);
-          // Actualiza la lista de estudiantes después de la actualización
-          const index = this.dataSource.findIndex(item => item.id === result.id);
-          if (index !== -1) {
-            this.dataSource[index] = result;
-          }
-        },
-        error: (err) => {
-          console.error('Error updating student:', err);
-        }
-      });
-    }
+    console.log('The dialog was closed');
   });
 }
+
 
 onDeleteItem(student: Student): void {
   this.apiStudent.delete(student.id).subscribe({
@@ -74,15 +61,10 @@ onDeleteItem(student: Student): void {
 }
 
   openDialog(){
-    const dialogRef= this.dialog.open(DialogStudentComponent,{
-      width: '600px',
-      data:{
-        firstName: this.student.firstName,
-        paternalLastName: this.student.paternalLastName,
-        maternalLastName: this.student.maternalLastName,
-        dni: this.student.dni,
-      }
-    });
+  const dialogRef = this.dialog.open(DialogStudentComponent, {
+    width: '600px',
+    data: { ...this.student, isEdit: false }
+  });
 
     dialogRef.afterClosed().subscribe(result=>{
       if(result.firstName!=null){
@@ -112,3 +94,4 @@ applyFilter() {
   });
 }
 }
+

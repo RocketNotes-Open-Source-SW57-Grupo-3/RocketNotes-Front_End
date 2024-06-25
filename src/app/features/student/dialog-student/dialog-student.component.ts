@@ -8,6 +8,7 @@ export interface Student{
   paternalLastName: string;
   maternalLastName: string;
   dni: string;
+  isEdit?: boolean;
 }
 
 @Component({
@@ -16,14 +17,15 @@ export interface Student{
   styleUrls: ['./dialog-student.component.css']
 })
 export class DialogStudentComponent implements OnInit {
-student: Student;
-constructor(
-  public dialogRef: MatDialogRef<DialogStudentComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: Student,
-  private studentsService: StudentsService
-) {
-  this.student = { ...data };
-}
+  student: Student;
+
+  constructor(
+      public dialogRef: MatDialogRef<DialogStudentComponent>,
+      @Inject(MAT_DIALOG_DATA) public data: Student,
+      private studentsService: StudentsService
+  ) {
+    this.student = {...data};
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -31,6 +33,14 @@ constructor(
 
   ngOnInit(): void {
     console.log("")
+  }
+
+  onSubmit(): void {
+    if (this.data.isEdit) {
+      this.updateStudent();
+    } else {
+      this.addStudent();
+    }
   }
   addStudent(): void {
     this.studentsService.create(this.data).subscribe({
@@ -40,15 +50,16 @@ constructor(
       }
     });
   }
-    updateStudent(): void {
-      this.studentsService.update(this.student.id, this.student).subscribe({
-        next: (response: any) => {
-          console.log(response);
-          this.dialogRef.close(response);
-        },
-        error: (err) => {
-          console.error('Error updating student:', err);
-        }
-      });
-    }
+
+  updateStudent(): void {
+    this.studentsService.update(this.student.id, this.student).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.dialogRef.close(response);
+      },
+      error: (err) => {
+        console.error('Error updating student:', err);
+      }
+    });
+  }
 }

@@ -3,13 +3,13 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 
 export interface Teacher{
-  name: string
-  dni: string
-  phone: string
-  address: string
-  email: string
-  paternal: string
-  maternal: string
+  id: string;
+  firstName: string;
+  paternalLastName: string;
+  maternalLastName: string;
+  dni: string;
+  phone: string;
+  email: string;
 }
 @Component({
   selector: 'app-dialog-teacher',
@@ -18,10 +18,10 @@ export interface Teacher{
 })
 export class DialogTeacherComponent implements OnInit {
 
-  constructor(
-      public dialogRef: MatDialogRef<DialogTeacherComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: Teacher) { }
-
+constructor(
+  public dialogRef: MatDialogRef<DialogTeacherComponent>,
+  @Inject(MAT_DIALOG_DATA) public data: Teacher
+) { }
   onNoClick():void{
     this.dialogRef.close();
   }

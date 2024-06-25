@@ -3,12 +3,13 @@ import {MatDialog} from "@angular/material/dialog";
 import {TeacherService} from "../service/teacher.service";
 import {DialogTeacherComponent} from "../dialog-teacher/dialog-teacher.component";
 export interface Teacher {
-  studentId: string;
-  name: string;
-  studentCode: string;
-  status: string;
-  paternal: string;
-  maternal: string;
+  id: string;
+  firstName: string;
+  paternalLastName: string;
+  maternalLastName: string;
+  dni: string;
+  phone: string;
+  email: string;
 }
 @Component({
   selector: 'app-teachers',
@@ -17,60 +18,65 @@ export interface Teacher {
 })
 export class TeachersComponent implements OnInit {
 
-
-  displayedColumns: string[] = ['id','name','teacherCode','action']
-
+  displayedColumns: string[] = ['id', 'firstName', 'paternalLastName', 'maternalLastName', 'dni', 'phone', 'email', 'action'];
   dataSource: Teacher[] = [];
-  teacher: any={}
-  constructor( private apiTeacher: TeacherService, public dialog: MatDialog) { }
+  teacher: Teacher = {id: '', firstName: '', paternalLastName: '', maternalLastName: '', dni: '', phone: '', email: ''};
 
+  constructor( private apiTeacher: TeacherService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.apiTeacher.get().subscribe({
       next:(response: any)=>{
-        this.dataSource = response
-        console.log(this.dataSource)
-      }
-    })
-  }
-  onEditItem(object: any){
-  }
-  onDeleteItem(object: any){
-
-  }
-  openDialog(){
-    const dialogRef= this.dialog.open(DialogTeacherComponent,{
-      width: '600px',
-      data:{
-        name:this.teacher.name,
-        dni: this.teacher.dni,
-        phone:this.teacher.phone,
-        address:this.teacher.address,
-        email:this.teacher.email,
+        this.dataSource = response;
+        console.log(this.dataSource);
       }
     });
-    dialogRef.afterClosed().subscribe(result=>{
-      if(result.name!=null){
-        let teacher1 ={
-          name:result.name+" "+result.maternal+" "+result.paternal,
-          dni: result.dni,
-          phone:result.phone,
-          address:result.address,
-          email:result.email,
-          teacherCode: "u20201b333@upc.edu.pe"
-        }
-        this.apiTeacher.create(teacher1).subscribe({
-              next:(response:any)=>{
-                console.log(response);
-              }
-            }
-        )
-
-      }
-
-    })
   }
 
+onEditItem(element: Teacher) {
+  const dialogRef = this.dialog.open(DialogTeacherComponent, {
+    width: '600px',
+    data: element
+  });
 
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+  });
+}
+  onDeleteItem(teacher: Teacher): void {
+    // Implementa la lógica de eliminación aquí
+  }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogTeacherComponent, {
+      width: '600px',
+      data: {
+        firstName: this.teacher.firstName,
+        paternalLastName: this.teacher.paternalLastName,
+        maternalLastName: this.teacher.maternalLastName,
+        dni: this.teacher.dni,
+        phone: this.teacher.phone,
+        email: this.teacher.email
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.firstName != null) {
+        let teacher1: Teacher = {
+          id: '', // Asegúrate de asignar un ID adecuado aquí
+          firstName: result.firstName,
+          paternalLastName: result.paternalLastName,
+          maternalLastName: result.maternalLastName,
+          dni: result.dni,
+          phone: result.phone,
+          email: result.email
+        };
+        this.apiTeacher.create(teacher1).subscribe({
+          next: (response: any) => {
+            console.log(response);
+          }
+        });
+      }
+    });
+  }
 }
