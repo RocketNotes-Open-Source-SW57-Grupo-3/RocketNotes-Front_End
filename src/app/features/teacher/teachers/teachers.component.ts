@@ -34,14 +34,32 @@ ngOnInit(): void {
   });
 }
 
-onEditItem(element: Teacher) {
+// En tu archivo teachers.component.ts
+onEditItem(teacher: Teacher) {
   const dialogRef = this.dialog.open(DialogTeacherComponent, {
     width: '600px',
-    data: element
+    data: teacher
   });
 
   dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
+    if (result) {
+      this.apiTeacher.update(teacher.id, result).subscribe({
+        next: (response: any) => {
+          console.log(response);
+          // Recarga los datos del servidor
+          this.apiTeacher.get().subscribe({
+            next: (response: any) => {
+              this.dataSource = response;
+              this.filteredData = [...this.dataSource];
+              this.cdr.detectChanges();
+            }
+          });
+        },
+        error: (error: any) => {
+          console.error('Error updating teacher:', error);
+        }
+      });
+    }
   });
 }
 
