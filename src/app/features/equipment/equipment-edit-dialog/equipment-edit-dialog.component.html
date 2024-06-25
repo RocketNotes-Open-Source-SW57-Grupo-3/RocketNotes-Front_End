@@ -1,0 +1,19 @@
+<h1 mat-dialog-title class="title">Edit Equipment</h1>
+<div class="space"></div>
+<div mat-dialog-content>
+    <div class="form-row">
+        <div class="form-field">
+            <mat-form-field appearance="outline">
+                <mat-label>State</mat-label>
+                <select matNativeControl id="state-select" [(ngModel)]="data.state">
+                    <option value="IN PROGRESS">IN PROGRESS</option>
+                    <option value="FINALIZED">FINALIZED</option>
+                </select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions class="actions">
+    <button mat-button class="cancel-button" (click)="onNoClick()">Cancel</button>
+    <button mat-button class="save-button" [mat-dialog-close]="data">Save</button>
+</div>

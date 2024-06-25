@@ -10,7 +10,6 @@ import { CustomMaterialModule } from './custom-material/custom-material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { LoggerModule } from 'ngx-logger';
 import { environment } from '../environments/environment';
-
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
@@ -31,6 +30,8 @@ import { CourseCreateFormComponent } from './infrastructure/components/course-cr
 import { RegisterComponent } from './features/auth/register/register.component';
 import {MatRadioModule} from "@angular/material/radio";
 import { CourseDetailComponent } from './infrastructure/pages/course-detail/course-detail.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 
 @NgModule({
@@ -64,6 +65,8 @@ import { CourseDetailComponent } from './infrastructure/pages/course-detail/cour
     MatDialogModule,
     CoreModule,
     SharedModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     CustomMaterialModule.forRoot(),
     AppRoutingModule,
     LoggerModule.forRoot({
