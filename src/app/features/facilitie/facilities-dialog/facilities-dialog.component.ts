@@ -2,11 +2,10 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import * as moment from 'moment';
 import { FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import {Equipment} from "../../equipment/equipment-dialog/equipment-dialog.component";
 
-
-export interface Equipment {
+export interface Facility {
   name: string
-  quantity: string
   budget: string
   creation: string
   period: string
@@ -14,17 +13,16 @@ export interface Equipment {
 }
 
 @Component({
-  selector: 'app-equipment-dialog',
-  templateUrl: './equipment-dialog.component.html',
-  styleUrls: ['./equipment-dialog.component.css']
+  selector: 'app-facilities-dialog',
+  templateUrl: './facilities-dialog.component.html',
+  styleUrls: ['./facilities-dialog.component.css']
 })
-
-export class EquipmentDialogComponent implements OnInit {
-  assignedDate = new FormControl(moment().add(1, 'days').toDate(), [Validators.required, this.dateValidator()]); // Fecha asignada para calcular el período
+export class FacilitiesDialogComponent implements OnInit {
+  assignedDate = new FormControl(moment().add(1, 'days').toDate(), [Validators.required, this.dateValidator()]);
 
   constructor(
-      public dialogRef: MatDialogRef<EquipmentDialogComponent>,
-      @Inject(MAT_DIALOG_DATA) public data:Equipment
+      public dialogRef: MatDialogRef<FacilitiesDialogComponent>,
+      @Inject(MAT_DIALOG_DATA) public data:Facility
   ) { }
 
   onNoClick():void{

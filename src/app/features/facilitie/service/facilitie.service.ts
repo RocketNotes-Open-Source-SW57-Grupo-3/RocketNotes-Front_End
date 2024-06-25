@@ -1,16 +1,28 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import { environmentDevelopment } from '../../../../environments/environment.development';
 import {BaseService} from "../../../shared/services/base.service";
-import {Facilitie} from "../list-facilities/list-facilities.component";
+import {Injectable} from "@angular/core";
+import {Facility} from "../facilities-list/facilities-list.component";
+import {HttpClient} from "@angular/common/http";
+import {tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
-export class FacilitieService  extends BaseService<Facilitie>{
+export class FacilitieService  extends BaseService<Facility>{
 
   constructor(http: HttpClient) {
     super(http);
-    this.resourceEndpoint= '/facilities';
+    this.resourceEndpoint= '/api/v1/factilites';
 
+  }
+
+  delete(id: string) {
+    return this.http.delete(`${environmentDevelopment.serverBasePath}${this.resourceEndpoint}/${id}`).pipe(
+        tap(response => console.log('Delete response:', response))
+    );
+  }
+
+  update(id: string, facility: Facility) {
+    return this.http.put(`${environmentDevelopment.serverBasePath}${this.resourceEndpoint}/${id}`, facility);
   }
 }

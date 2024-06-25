@@ -17,7 +17,7 @@ export class BaseService <T>{
       'Content-Type': 'application/json'
     })
   }
-  constructor(private http: HttpClient) { }
+  constructor(protected http: HttpClient) { }
 
   handleError(error: HttpErrorResponse){
     if(error.error instanceof ErrorEvent){

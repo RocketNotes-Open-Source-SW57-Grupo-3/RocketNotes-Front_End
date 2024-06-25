@@ -7,6 +7,7 @@ import {EquipmentDialogComponent} from "../equipment-dialog/equipment-dialog.com
 import {MatDialog} from "@angular/material/dialog";
 import {EquipmentEditDialogComponent} from "../equipment-edit-dialog/equipment-edit-dialog.component";
 import {EquipmentDeleteDialogComponent} from "../equipment-delete-dialog/equipment-delete-dialog.component";
+import { finalize } from 'rxjs/operators';
 
 export interface Equipment {
   id: string;
@@ -52,7 +53,6 @@ export class EquipmentComponent implements OnInit {
         budget: this.equipment.budget,
         period: this.equipment.period,
         status : this.equipment.status
-
       }
     });
     dialogRef.afterClosed().subscribe(result=>{
@@ -65,15 +65,17 @@ export class EquipmentComponent implements OnInit {
           period:result.period,
           status: result.status,
         }
-        this.apiService.create(equipment1).subscribe({
-              next:(response:any)=>{
-                console.log(response);
-              }
-            }
-        )
-
+        this.apiService.create(equipment1).pipe(
+            finalize(() => location.reload())
+        ).subscribe({
+          next:(response:any)=>{
+            console.log(response);
+          },
+          error: (error: any) => {
+            console.error('There was an error creating the item', error);
+          }
+        })
       }
-
     })
   }
 
@@ -128,14 +130,13 @@ export class EquipmentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
-        // El usuario confirmó la eliminación
-        this.apiService.delete(element.id).subscribe({
+        this.apiService.delete(element.id).pipe(
+            finalize(() => location.reload())
+        ).subscribe({
           next: (response: any) => {
-            // Remove the item from the dataSource array
-            this.dataSource = this.dataSource.filter(item => item.id !== element.id);
+            console.log('Delete response:', response);
           },
           error: (error: any) => {
-            // Handle error here
             console.error('There was an error deleting the item', error);
           }
         });

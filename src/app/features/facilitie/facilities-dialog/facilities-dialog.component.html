@@ -1,0 +1,56 @@
+<h1 mat-dialog-title class="title">Facilities</h1>
+<div mat-dialog-content>
+    <div class="space"></div>
+    <div class="form-row">
+        <div class="form-field">
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput [(ngModel)]="data.name" required #name="ngModel">
+                <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+                    Name is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-field">
+            <mat-form-field appearance="outline">
+                <mat-label>Budget</mat-label>
+                <input matInput [(ngModel)]="data.budget" type="number" #budget="ngModel" required>
+                <mat-error *ngIf="budget.invalid && (budget.dirty || budget.touched)">
+                    Only numbers are allowed
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-field">
+            <mat-form-field appearance="outline">
+                <mat-label>Creation</mat-label>
+                <input matInput [value]="data.creation | date:'MMMM d, y'" readonly>
+            </mat-form-field>
+        </div>
+        <div class="form-field">
+            <mat-form-field appearance="outline">
+                <mat-label>Period</mat-label>
+                <input matInput [matDatepicker]="periodPicker" [formControl]="assignedDate" (dateChange)="calculatePeriod()" required>
+                <mat-datepicker-toggle matSuffix [for]="periodPicker"></mat-datepicker-toggle>
+                <mat-datepicker #periodPicker></mat-datepicker>
+                <mat-error *ngIf="assignedDate.invalid && (assignedDate.dirty || assignedDate.touched)">
+                    Date is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-field">
+            <mat-form-field appearance="outline">
+                <mat-label>State</mat-label>
+                <input matInput value="IN PROGRESS" readonly>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions class="actions">
+    <button mat-button class="cancel-button" (click)="onNoClick()">Cancel</button>
+    <button mat-button class="save-button" [mat-dialog-close]="data"
+            [disabled]="name.invalid || assignedDate.invalid || budget.invalid">Save</button>
+</div>

@@ -1,6 +1,6 @@
 import {Router, RouterModule, Routes} from "@angular/router";
 import {LayoutComponent} from "../../shared/layout/layout.component";
-import {ListFacilitiesComponent} from "./list-facilities/list-facilities.component";
+import {FacilitiesListComponent} from "./facilities-list/facilities-list.component";
 import {NgModule} from "@angular/core";
 
 
@@ -10,7 +10,7 @@ const routes: Routes = [
         component: LayoutComponent,
         children:[
             {
-                path:'',component: ListFacilitiesComponent
+                path:'',component: FacilitiesListComponent
             },
         ]
     }

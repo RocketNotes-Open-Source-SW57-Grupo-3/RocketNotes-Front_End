@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http'
 import { EquipmentComponent } from './equipment-list/equipment.component';
 import {SharedModule} from "../../shared/shared.module";
 import {EquipmentRoutingModule} from "./equipment-routing.module";
@@ -15,7 +16,7 @@ import { EquipmentDeleteDialogComponent } from './equipment-delete-dialog/equipm
     EquipmentComponent,
     EquipmentDialogComponent,
     EquipmentEditDialogComponent,
-    EquipmentDeleteDialogComponent
+    EquipmentDeleteDialogComponent,
   ],
   exports:[
     EquipmentComponent
@@ -24,7 +25,8 @@ import { EquipmentDeleteDialogComponent } from './equipment-delete-dialog/equipm
     CommonModule,
     SharedModule,
     EquipmentRoutingModule,
-    FacilitiesModule
+    FacilitiesModule,
+    HttpClientModule,
   ]
 })
 export class EquipmentModule { }
