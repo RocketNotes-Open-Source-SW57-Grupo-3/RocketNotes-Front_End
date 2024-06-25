@@ -33,18 +33,43 @@ export class StudentListComponent implements OnInit {
     })
   }
 
-  onEditItem(object: any){
-  }
+onEditItem(student: Student): void {
+  const dialogRef = this.dialog.open(DialogStudentComponent, {
+    width: '600px',
+    data: student  // Pasar el estudiante a editar
+  });
 
-  onDeleteItem(student: Student): void {
-    this.apiStudent.delete(student.id).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        // Actualiza la lista de estudiantes después de la eliminación
-        this.dataSource = this.dataSource.filter(item => item.id !== student.id);
-      }
-    });
-  }
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      this.apiStudent.update(result.id, result).subscribe({
+        next: (response: any) => {
+          console.log(response);
+          // Actualiza la lista de estudiantes después de la actualización
+          const index = this.dataSource.findIndex(item => item.id === result.id);
+          if (index !== -1) {
+            this.dataSource[index] = result;
+          }
+        },
+        error: (err) => {
+          console.error('Error updating student:', err);
+        }
+      });
+    }
+  });
+}
+
+onDeleteItem(student: Student): void {
+  this.apiStudent.delete(student.id).subscribe({
+    next: (response: any) => {
+      console.log(response);
+      // Actualiza la lista de estudiantes después de la eliminación
+      this.dataSource = this.dataSource.filter(item => item.id !== student.id);
+    },
+    error: (err) => {
+      console.error('Error deleting student:', err);
+    }
+  });
+}
 
   openDialog(){
     const dialogRef= this.dialog.open(DialogStudentComponent,{
@@ -74,4 +99,9 @@ export class StudentListComponent implements OnInit {
       }
     })
   }
+  applyFilter(filterValue: string) {
+  this.dataSource = this.dataSource.filter(student =>
+    student.firstName.toLowerCase().includes(filterValue.trim().toLowerCase())
+  );
+}
 }

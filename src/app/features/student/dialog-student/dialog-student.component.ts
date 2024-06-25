@@ -16,12 +16,14 @@ export interface Student{
   styleUrls: ['./dialog-student.component.css']
 })
 export class DialogStudentComponent implements OnInit {
-
+student: Student;
 constructor(
   public dialogRef: MatDialogRef<DialogStudentComponent>,
   @Inject(MAT_DIALOG_DATA) public data: Student,
   private studentsService: StudentsService
-) {}
+) {
+  this.student = { ...data };
+}
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -31,12 +33,22 @@ constructor(
     console.log("")
   }
   addStudent(): void {
-  this.studentsService.create(this.data).subscribe({
-    next: (response: any) => {
-      console.log(response);
-      this.dialogRef.close(response);
+    this.studentsService.create(this.data).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.dialogRef.close(response);
+      }
+    });
+  }
+    updateStudent(): void {
+      this.studentsService.update(this.student.id, this.student).subscribe({
+        next: (response: any) => {
+          console.log(response);
+          this.dialogRef.close(response);
+        },
+        error: (err) => {
+          console.error('Error updating student:', err);
+        }
+      });
     }
-  });
-}
-
 }

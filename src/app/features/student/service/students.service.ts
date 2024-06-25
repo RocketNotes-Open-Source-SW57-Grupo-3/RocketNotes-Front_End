@@ -15,4 +15,7 @@ export class StudentsService  extends BaseService<Student>{
   delete(id: string) {
     return this.http.delete(`${this.resourceEndpoint}/${id}`);
   }
+  update(id: string, student: Student) {
+  return this.http.put(`${this.resourceEndpoint}/${id}`, student);
+  }
 }
