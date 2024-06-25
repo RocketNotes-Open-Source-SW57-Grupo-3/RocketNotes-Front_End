@@ -2,7 +2,6 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {TeacherService} from "../service/teacher.service";
 import {DialogTeacherComponent} from "../dialog-teacher/dialog-teacher.component";
-import {Student} from "../../student/student-list/student-list.component";
 import {finalize} from "rxjs";
 export interface Teacher {
   id: string;

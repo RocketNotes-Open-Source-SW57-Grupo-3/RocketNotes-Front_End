@@ -2,8 +2,7 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {DialogStudentComponent} from "../dialog-student/dialog-student.component";
 import {StudentsService} from "../service/students.service";
-import {finalize} from "rxjs";
-
+import {concatMap, finalize} from "rxjs";
 
 export interface Student {
   id: string;
@@ -92,42 +91,38 @@ export class StudentListComponent implements OnInit {
     });
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogStudentComponent, {
-      width: '600px',
-      data: {
-        firstName: this.student.firstName,
-        paternalLastName: this.student.paternalLastName,
-        maternalLastName: this.student.maternalLastName,
-        dni: this.student.dni
-      }
-    });
+openDialog(): void {
+  const dialogRef = this.dialog.open(DialogStudentComponent, {
+    width: '600px',
+    data: {
+      firstName: this.student.firstName,
+      paternalLastName: this.student.paternalLastName,
+      maternalLastName: this.student.maternalLastName,
+      dni: this.student.dni
+    }
+  });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result.firstName != null) {
-        let student1: Student = {
-          id: '', // Asegúrate de asignar un ID adecuado aquí
-          firstName: result.firstName,
-          paternalLastName: result.paternalLastName,
-          maternalLastName: result.maternalLastName,
-          dni: result.dni
-        };
-        this.apiStudent.create(student1).subscribe({
-          next: (response: any) => {
-            console.log(response);
-            // Recarga los datos del servidor
-            this.apiStudent.get().subscribe({
-              next: (response: any) => {
-              this.dataSource = response;
-              this.filteredData = [...this.dataSource];
-              this.cdr.detectChanges();
-              }
-            });
-          }
-        });
-      }
-    });
-  }
+  dialogRef.afterClosed().subscribe(result => {
+    if (result.firstName != null) {
+      let student1: Student = {
+        id: '', // Asegúrate de asignar un ID adecuado aquí
+        firstName: result.firstName,
+        paternalLastName: result.paternalLastName,
+        maternalLastName: result.maternalLastName,
+        dni: result.dni
+      };
+      this.apiStudent.create(student1).pipe(
+        concatMap(() => this.apiStudent.get())
+      ).subscribe({
+        next: (response: any) => {
+          this.dataSource = response;
+          this.filteredData = [...this.dataSource];
+          this.cdr.detectChanges();
+        }
+      });
+    }
+  });
+}
 
   applyFilter() {
     const filterValueLower = this.filterValue.trim().toLowerCase();
