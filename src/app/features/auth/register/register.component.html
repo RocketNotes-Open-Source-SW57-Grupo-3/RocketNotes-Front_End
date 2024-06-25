@@ -5,6 +5,20 @@
             <mat-card-subtitle>Register your account</mat-card-subtitle>
             <mat-card-content>
 
+                <mat-form-field class="full-width">
+                    <input id="firstNameInput" matInput placeholder="First Name" formControlName="firstName" autocomplete="given-name" type="text" aria-label="First Name">
+                    <mat-error id="requiredFirstNameError" *ngIf="registerForm.controls['firstName'].hasError('required')">
+                        First name is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <input id="lastNameInput" matInput placeholder="Last Name" formControlName="lastName" autocomplete="family-name" type="text" aria-label="Last Name">
+                    <mat-error id="requiredLastNameError" *ngIf="registerForm.controls['lastName'].hasError('required')">
+                        Last name is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+
                 <div class="full-width role-selection">
                     <mat-radio-group formControlName="userRole" aria-label="User Role">
                         <mat-radio-button value="admin" aria-label="Administrator">Administrator</mat-radio-button>
@@ -24,7 +38,6 @@
 
                 <mat-form-field class="full-width">
                     <input id="passwordInput" matInput placeholder="Password" formControlName="password" [type]="hidePassword ? 'password' : 'text'" autocomplete="new-password" aria-label="Password">
-
                     <mat-error id="requiredPasswordError" *ngIf="registerForm.controls['password'].hasError('required')">
                         Password is <strong>required</strong>
                     </mat-error>
@@ -35,7 +48,6 @@
 
                 <mat-form-field class="full-width">
                     <input id="passwordConfirmInput" matInput placeholder="Confirm Password" formControlName="confirmPassword" [type]="hidePasswordConfirm ? 'password' : 'text'" autocomplete="new-password" aria-label="Confirm Password">
-
                     <mat-error id="requiredPasswordConfirmError" *ngIf="registerForm.controls['confirmPassword'].hasError('required')">
                         Please confirm your password
                     </mat-error>

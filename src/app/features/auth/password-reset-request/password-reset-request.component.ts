@@ -1,10 +1,6 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
-
-import { NotificationService } from 'src/app/core/services/notification.service';
-import { AuthenticationService } from 'src/app/core/services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-password-reset-request',
@@ -12,42 +8,45 @@ import { AuthenticationService } from 'src/app/core/services/auth.service';
   styleUrls: ['./password-reset-request.component.css']
 })
 export class PasswordResetRequestComponent implements OnInit {
-
   form!: FormGroup;
   loading = false;
-
   hidePassword = true;
   hidePasswordConfirm = true;
 
-  constructor(
-      private authService: AuthenticationService,
-      private notificationService: NotificationService,
-      private titleService: Title,
-      private router: Router
-  ) { }
+  constructor(private formBuilder: FormBuilder, private router: Router) { }
 
-  ngOnInit() {
-    this.titleService.setTitle('RocketNotes - Password Reset Request');
+  ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required]
+    }, { validator: this.checkPasswords });
+  }
 
-    this.form = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      confirmPassword: new FormControl('', [Validators.required])
-    });
+  checkPasswords(group: FormGroup) {
+    let pass = group.controls['newPassword'].value;
+    let confirmPass = group.controls['confirmPassword'].value;
+    return pass === confirmPass ? null : { mismatch: true };
   }
 
   resetPassword() {
-    if (this.form.valid) {
-      this.loading = true;
-      // Aquí iría la lógica para realizar el cambio de contraseña en el futuro
-      console.log('Form value:', this.form.value);
-      this.router.navigate(['/auth/login']);
-      this.notificationService.openSnackBar('This is a placeholder for password reset.');
-      this.loading = false;
+    if (this.form.invalid) {
+      return;
     }
+
+    this.loading = true;
+
+    // Aquí agregarías la lógica para enviar los datos al backend
+    console.log(this.form.value);
+
+    // Para propósitos de ejemplo, estableceremos el loading a false después de 2 segundos
+    setTimeout(() => {
+      this.loading = false;
+    }, 2000);
   }
 
   cancel() {
-    this.router.navigate(['/auth/login']);
+    // Aquí iría la lógica para cancelar la operación y volver a la página de login
+    this.router.navigate(['auth/login'])
   }
 }
