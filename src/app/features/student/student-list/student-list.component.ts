@@ -18,20 +18,21 @@ export interface Student {
 })
 export class StudentListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'firstName', 'paternalLastName', 'maternalLastName', 'dni', 'action']
-
+  filterValue: string = '';
   dataSource: Student[] = [];
   student: Student = {id: '', firstName: '', paternalLastName: '', maternalLastName: '', dni: ''};
 
   constructor( private apiStudent: StudentsService, public dialog: MatDialog) { }
 
-  ngOnInit(): void {
-    this.apiStudent.get().subscribe({
-      next:(response: any)=>{
-        this.dataSource = response
-        console.log(this.dataSource)
-      }
-    })
-  }
+ngOnInit(): void {
+  this.apiStudent.get().subscribe({
+    next:(response: any)=>{
+      this.dataSource = response;
+      this.filteredData = [...this.dataSource];
+      console.log(this.dataSource);
+    }
+  });
+}
 
 onEditItem(student: Student): void {
   const dialogRef = this.dialog.open(DialogStudentComponent, {
@@ -68,6 +69,7 @@ onDeleteItem(student: Student): void {
     error: (err) => {
       console.error('Error deleting student:', err);
     }
+
   });
 }
 
@@ -99,9 +101,14 @@ onDeleteItem(student: Student): void {
       }
     })
   }
-  applyFilter(filterValue: string) {
-  this.dataSource = this.dataSource.filter(student =>
-    student.firstName.toLowerCase().includes(filterValue.trim().toLowerCase())
-  );
+filteredData: Student[] = [];
+
+applyFilter() {
+  const filterValueLower = this.filterValue.trim().toLowerCase();
+  this.filteredData = this.dataSource.filter(student => {
+    const fullName = `${student.firstName} ${student.paternalLastName} ${student.maternalLastName}`.toLowerCase();
+    const dniLower = student.dni.toLowerCase();
+    return fullName.includes(filterValueLower) || dniLower.includes(filterValueLower);
+  });
 }
 }
