@@ -29,8 +29,7 @@ export class DialogTeacherComponent implements OnInit {
       paternalLastName: new FormControl(this.data.paternalLastName, Validators.required),
       maternalLastName: new FormControl(this.data.maternalLastName, Validators.required),
       dni: new FormControl(this.data.dni, [Validators.required, Validators.pattern('^[0-9]{8}$')]),
-      phone: new FormControl(this.data.phone, Validators.required),
-      email: new FormControl(this.data.email, [Validators.required, Validators.email])
+      phone: new FormControl(this.data.phone, [Validators.required, Validators.pattern('^[0-9]{9}$')]),      email: new FormControl(this.data.email, [Validators.required, Validators.email])
     });
   }
 

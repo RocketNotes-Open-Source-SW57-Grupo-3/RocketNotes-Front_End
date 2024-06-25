@@ -1,16 +1,18 @@
-<h1 mat-dialog-title>Hi</h1>
+<h1 mat-dialog-title>Hi!</h1>
 <div mat-dialog-content>
     <form [formGroup]="form">
         <ul>
             <li>
                 <p>First Name</p>
                 <mat-form-field>
+                    <mat-label>First Name</mat-label>
                     <input matInput formControlName="firstName">
                 </mat-form-field>
             </li>
             <li>
                 <p>Paternal Last Name</p>
                 <mat-form-field>
+                    <mat-label>Paternal Last Name</mat-label>
                     <input matInput formControlName="paternalLastName">
                 </mat-form-field>
             </li>
@@ -19,6 +21,7 @@
             <li>
                 <p>Maternal Last Name</p>
                 <mat-form-field>
+                    <mat-label>Maternal Last Name</mat-label>
                     <input matInput formControlName="maternalLastName">
                 </mat-form-field>
             </li>
@@ -37,12 +40,17 @@
             <li>
                 <p>Phone</p>
                 <mat-form-field>
+                    <mat-label>Phone</mat-label>
                     <input matInput formControlName="phone">
+                    <mat-error *ngIf="form.controls['phone'].hasError('pattern')">
+                        El teléfono debe contener exactamente 9 números.
+                    </mat-error>
                 </mat-form-field>
             </li>
             <li>
                 <p>Email</p>
                 <mat-form-field>
+                    <mat-label>Email</mat-label>
                     <input matInput formControlName="email">
                 </mat-form-field>
             </li>
