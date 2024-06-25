@@ -3,7 +3,7 @@
 </h1>
 <ul>
     <li><h2>Search</h2></li>
-<input [(ngModel)]="filterValue" (input)="applyFilter()" style="width: 300px; height: 25px">
+    <input [(ngModel)]="filterValue" (input)="applyFilter()" style="width: 300px; height: 25px">
     <li><button (click)="openDialog()" class="button">ADD STUDENT</button></li></ul>
 <div class="table">
 <table mat-table [dataSource]="filteredData" class="mat-elevation-z8 full-width ">

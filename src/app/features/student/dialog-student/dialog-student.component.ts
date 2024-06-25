@@ -42,15 +42,15 @@ export class DialogStudentComponent implements OnInit {
       this.addStudent();
     }
   }
-  addStudent(): void {
-    this.studentsService.create(this.data).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        this.dialogRef.close(response);
-      }
-    });
-  }
-
+addStudent(): void {
+  this.studentsService.create(this.data).subscribe({
+    next: (response: any) => {
+      console.log(response);
+      // Cierra el diálogo y pasa el nuevo estudiante al componente que abrió el diálogo
+      this.dialogRef.close(response);
+    }
+  });
+}
   updateStudent(): void {
     this.studentsService.update(this.student.id, this.student).subscribe({
       next: (response: any) => {
