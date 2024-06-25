@@ -22,6 +22,7 @@ export class TeachersComponent implements OnInit {
   displayedColumns: string[] = ['id', 'firstName', 'paternalLastName', 'maternalLastName', 'dni', 'phone', 'email', 'action'];
   dataSource: Teacher[] = [];
   filterValue: string = '';
+  filteredData: Teacher[] = [];
   teacher: Teacher = {id: '', firstName: '', paternalLastName: '', maternalLastName: '', dni: '', phone: '', email: ''};
 
 constructor(private apiTeacher: TeacherService, public dialog: MatDialog, private cdr: ChangeDetectorRef) { }
@@ -116,7 +117,6 @@ onDeleteItem(teacher: Teacher): void {
   }
 });
 }
-filteredData: Teacher[] = [];
 
 applyFilter() {
   const filterValueLower = this.filterValue.trim().toLowerCase();
