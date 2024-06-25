@@ -2,26 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {DialogStudentComponent} from "../dialog-student/dialog-student.component";
 import {StudentsService} from "../service/students.service";
+
 export interface Student {
-  studentId: string;
-  name: string;
-  studentCode: string;
-  status: string;
-  paternal: string;
-  maternal: string;
+  id: string;
+  firstName: string;
+  paternalLastName: string;
+  maternalLastName: string;
+  dni: string;
 }
+
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
   styleUrls: ['./student-list.component.css']
 })
 export class StudentListComponent implements OnInit {
-  displayedColumns: string[] = ['id','name','studentCode','status','action']
+  displayedColumns: string[] = ['id', 'firstName', 'paternalLastName', 'maternalLastName', 'dni', 'action']
 
   dataSource: Student[] = [];
-  student: any={}
-  constructor( private apiStudent: StudentsService, public dialog: MatDialog) { }
+  student: Student = {id: '', firstName: '', paternalLastName: '', maternalLastName: '', dni: ''};
 
+  constructor( private apiStudent: StudentsService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.apiStudent.get().subscribe({
@@ -31,27 +32,38 @@ export class StudentListComponent implements OnInit {
       }
     })
   }
+
   onEditItem(object: any){
   }
-  onDeleteItem(object: any){
 
+  onDeleteItem(student: Student): void {
+    this.apiStudent.delete(student.id).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        // Actualiza la lista de estudiantes después de la eliminación
+        this.dataSource = this.dataSource.filter(item => item.id !== student.id);
+      }
+    });
   }
+
   openDialog(){
     const dialogRef= this.dialog.open(DialogStudentComponent,{
       width: '600px',
       data:{
-        name:this.student.name,
-        studentCode: this.student.studentCode,
-        status : 'Enrolled',
-
+        firstName: this.student.firstName,
+        paternalLastName: this.student.paternalLastName,
+        maternalLastName: this.student.maternalLastName,
+        dni: this.student.dni,
       }
     });
+
     dialogRef.afterClosed().subscribe(result=>{
-      if(result.name!=null){
+      if(result.firstName!=null){
         let student1 ={
-          name:result.name+" "+result.maternal+" "+result.paternal,
-          studentCode:result.studentCode,
-          enrollmentStatus: "Enrolled",
+          firstName: result.firstName,
+          paternalLastName: result.paternalLastName,
+          maternalLastName: result.maternalLastName,
+          dni: result.dni,
         }
         this.apiStudent.create(student1).subscribe({
               next:(response:any)=>{
@@ -59,11 +71,7 @@ export class StudentListComponent implements OnInit {
               }
             }
         )
-
       }
-
     })
   }
-
-
 }

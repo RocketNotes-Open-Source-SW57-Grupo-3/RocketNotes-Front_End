@@ -10,6 +10,9 @@ export class StudentsService  extends BaseService<Student>{
 
   constructor(http: HttpClient) {
     super(http);
-    this.resourceEndpoint = '/students';
+    this.resourceEndpoint = '/api/v1/students';
+  }
+  delete(id: string) {
+    return this.http.delete(`${this.resourceEndpoint}/${id}`);
   }
 }

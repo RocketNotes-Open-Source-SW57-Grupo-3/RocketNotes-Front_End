@@ -1,14 +1,15 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {StudentsService} from "../service/students.service";
+
 export interface Student{
-name: string
-studentCode: string
-status: string
-paternal: string
-maternal: string
-
-
+  id: string;
+  firstName: string;
+  paternalLastName: string;
+  maternalLastName: string;
+  dni: string;
 }
+
 @Component({
   selector: 'app-dialog-student',
   templateUrl: './dialog-student.component.html',
@@ -16,15 +17,26 @@ maternal: string
 })
 export class DialogStudentComponent implements OnInit {
 
-  constructor(
-      public dialogRef: MatDialogRef<DialogStudentComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: Student) {}
+constructor(
+  public dialogRef: MatDialogRef<DialogStudentComponent>,
+  @Inject(MAT_DIALOG_DATA) public data: Student,
+  private studentsService: StudentsService
+) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+
   ngOnInit(): void {
     console.log("")
   }
+  addStudent(): void {
+  this.studentsService.create(this.data).subscribe({
+    next: (response: any) => {
+      console.log(response);
+      this.dialogRef.close(response);
+    }
+  });
+}
 
 }
