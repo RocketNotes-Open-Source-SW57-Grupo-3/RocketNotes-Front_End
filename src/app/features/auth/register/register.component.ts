@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AuthenticationService} from "../../../infrastructure/services/authentication.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -13,7 +14,7 @@ export class RegisterComponent implements OnInit {
   hidePassword = true;
   hidePasswordConfirm = true;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private router: Router,private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -39,13 +40,21 @@ export class RegisterComponent implements OnInit {
 
     this.loading = true;
 
-    // Aquí agregarías la lógica para enviar los datos al backend
-    console.log(this.registerForm.value);
 
-    // Para propósitos de ejemplo, estableceremos el loading a false después de 2 segundos
-    setTimeout(() => {
-      this.loading = false;
-    }, 2000);
+    const { firstName, lastName, email, password, userRole } = this.registerForm.value;
+
+    this.authenticationService.signUp({ firstName, lastName, email, password, userRole }).subscribe({
+      next: (response) => {
+        console.log('Registration successful', response);
+        this.loading = false;
+        this.router.navigate(['/auth/login']);
+      },
+      error: (error) => {
+        console.error('Registration failed', error);
+        this.loading = false;
+      }
+    });
+
   }
 
   cancel() {

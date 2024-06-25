@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Router} from "@angular/router";
+import {AuthenticationService} from "../../../infrastructure/services/authentication.service";
 
 @Component({
   selector: 'app-password-reset-request',
@@ -13,7 +14,7 @@ export class PasswordResetRequestComponent implements OnInit {
   hidePassword = true;
   hidePasswordConfirm = true;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -36,8 +37,23 @@ export class PasswordResetRequestComponent implements OnInit {
 
     this.loading = true;
 
-    // Aquí agregarías la lógica para enviar los datos al backend
-    console.log(this.form.value);
+
+    const email = this.form.value.email;
+
+    this.authenticationService.resetPassword(email).subscribe({
+      next: () => {
+        console.log('Password reset request successful');
+        // Aquí puedes redirigir a una página de confirmación o mostrar un mensaje
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Password reset request failed', error);
+        // Aquí puedes mostrar un mensaje de error al usuario
+        this.loading = false;
+      }
+    });
+
+
 
     // Para propósitos de ejemplo, estableceremos el loading a false después de 2 segundos
     setTimeout(() => {
