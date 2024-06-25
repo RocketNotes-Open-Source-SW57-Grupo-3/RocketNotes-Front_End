@@ -80,47 +80,39 @@ export class EquipmentComponent implements OnInit {
   }
 
   onEditItem(element: Equipment) {
-    const dialogRef = this.dialog.open(EquipmentEditDialogComponent, {
-      width: '600px',
-      data: {
-        id: element.id,
-        name: element.name,
-        quantity: element.quantity,
-        budget: element.budget,
-        creation: element.creation,
-        period: element.period,
-        status: element.status
-      }
-    });
+  const dialogRef = this.dialog.open(EquipmentEditDialogComponent, {
+    width: '600px',
+    data: {
+      id: element.id,
+      name: element.name,
+      quantity: element.quantity,
+      budget: element.budget,
+      creation: element.creation,
+      period: element.period,
+      status: element.status
+    }
+  });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        let updatedEquipment = {
-          id: result.id,
-          name: result.name,
-          quantity: result.quantity,
-          budget: result.budget,
-          creation: result.creation,
-          period: result.period,
-          status: result.status,
-        }
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      let updatedStatus = result.status;
 
-        this.apiService.update(result.id, updatedEquipment).subscribe({
-          next: (response: any) => {
-            // Update the item in the dataSource array
-            let index = this.dataSource.findIndex(item => item.id === updatedEquipment.id);
-            if (index !== -1) {
-              this.dataSource[index] = updatedEquipment;
-            }
-          },
-          error: (error: any) => {
-            // Handle error here
-            console.error('There was an error updating the item', error);
-          }
-        });
+      this.apiService.updateStatus(result.id, 'FINALIZED').subscribe({
+    next: (response: any) => {
+      // Update the item in the dataSource array
+      let index = this.dataSource.findIndex(item => item.id === result.id);
+      if (index !== -1) {
+        this.dataSource[index].status = 'FINALIZED';
       }
-    });
-  }
+    },
+    error: (error: any) => {
+      // Handle error here
+      console.error('There was an error updating the item', error);
+    }
+  });
+    }
+  });
+}
 
   onDeleteItem(element: Equipment) {
     const dialogRef = this.dialog.open(EquipmentDeleteDialogComponent, {
