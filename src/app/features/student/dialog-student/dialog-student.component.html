@@ -1,37 +1,37 @@
-<!-- Asegúrate de tener campos de entrada para todas las propiedades del estudiante -->
-
 <h1 mat-dialog-title>Hi </h1>
 <div mat-dialog-content>
-    <ul>
-        <li>
-            <p> First Name </p>
-            <mat-form-field>
-                <input matInput [(ngModel)]="data.firstName">
-            </mat-form-field>
-        </li>
-        <li>
-            <p>Paternal Last Name</p>
-            <mat-form-field>
-                <input matInput [(ngModel)]="data.paternalLastName">
-            </mat-form-field>
-        </li>
-    </ul>
-    <ul>
-        <li>
-            <p> Maternal Last Name</p>
-            <mat-form-field>
-                <input matInput [(ngModel)]="data.maternalLastName">
-            </mat-form-field>
-        </li>
-        <li>
-            <p>DNI</p>
-            <mat-form-field>
-                <input matInput [(ngModel)]="data.dni">
-            </mat-form-field>
-        </li>
-    </ul>
+    <form [formGroup]="form">
+        <ul>
+            <li>
+                <p> First Name </p>
+                <mat-form-field>
+                    <input matInput formControlName="firstName">
+                </mat-form-field>
+            </li>
+            <li>
+                <p>Paternal Last Name</p>
+                <mat-form-field>
+                    <input matInput formControlName="paternalLastName">
+                </mat-form-field>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <p> Maternal Last Name</p>
+                <mat-form-field>
+                    <input matInput formControlName="maternalLastName">
+                </mat-form-field>
+            </li>
+            <li>
+                <p>DNI</p>
+                <mat-form-field>
+                    <input matInput formControlName="dni">
+                </mat-form-field>
+            </li>
+        </ul>
+    </form>
 </div>
 <div mat-dialog-actions class="actions">
     <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button (click)="onSubmit()">{{data.isEdit ? 'Update' : 'Add'}}</button>
+    <button mat-button [mat-dialog-close]="form.value" [disabled]="form.invalid">Save</button>
 </div>

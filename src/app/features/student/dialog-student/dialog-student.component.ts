@@ -1,7 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {StudentsService} from "../service/students.service";
-
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export interface Student{
   id: string;
   firstName: string;
@@ -16,15 +15,21 @@ export interface Student{
   templateUrl: './dialog-student.component.html',
   styleUrls: ['./dialog-student.component.css']
 })
+
 export class DialogStudentComponent implements OnInit {
-  student: Student;
+  form: FormGroup;
 
   constructor(
-      public dialogRef: MatDialogRef<DialogStudentComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: Student,
-      private studentsService: StudentsService
+    private fb: FormBuilder,
+    public dialogRef: MatDialogRef<DialogStudentComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Student
   ) {
-    this.student = {...data};
+      this.form = this.fb.group({
+        firstName: [this.data.firstName, Validators.required],
+        paternalLastName: [this.data.paternalLastName, Validators.required],
+        maternalLastName: [this.data.maternalLastName, Validators.required],
+        dni: [this.data.dni, [Validators.required, Validators.pattern(/^\d{8}$/)]]
+      });
   }
 
   onNoClick(): void {
@@ -35,31 +40,4 @@ export class DialogStudentComponent implements OnInit {
     console.log("")
   }
 
-  onSubmit(): void {
-    if (this.data.isEdit) {
-      this.updateStudent();
-    } else {
-      this.addStudent();
-    }
-  }
-addStudent(): void {
-  this.studentsService.create(this.data).subscribe({
-    next: (response: any) => {
-      console.log(response);
-      // Cierra el diálogo y pasa el nuevo estudiante al componente que abrió el diálogo
-      this.dialogRef.close(response);
-    }
-  });
-}
-  updateStudent(): void {
-    this.studentsService.update(this.student.id, this.student).subscribe({
-      next: (response: any) => {
-        console.log(response);
-        this.dialogRef.close(response);
-      },
-      error: (err) => {
-        console.error('Error updating student:', err);
-      }
-    });
-  }
 }

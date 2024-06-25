@@ -20,6 +20,7 @@ export interface Teacher{
 export class DialogTeacherComponent implements OnInit {
   form: FormGroup;
 
+
   constructor(
     public dialogRef: MatDialogRef<DialogTeacherComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Teacher

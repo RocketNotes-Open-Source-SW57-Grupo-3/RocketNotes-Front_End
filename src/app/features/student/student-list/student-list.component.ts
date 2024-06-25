@@ -36,38 +36,74 @@ export class StudentListComponent implements OnInit {
     });
   }
 
-  onEditItem(element: Student) {
-    const dialogRef = this.dialog.open(DialogStudentComponent, {
-      width: '600px',
-      data: {...element, isEdit: true}
-    });
+onEditItem(student: Student) {
+  const dialogRef = this.dialog.open(DialogStudentComponent, {
+    width: '600px',
+    data: student
+  });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
-
-  onUpdateItem(student: Student): void {
-    this.apiStudent.update(student.id, student).subscribe({
-          next: (response: any) => {
-            console.log('Update response:', response);
-
-            // Actualiza los datos del estudiante en dataSource y filteredData
-            const index = this.dataSource.findIndex(s => s.id === student.id);
-            if (index !== -1) {
-              this.dataSource[index] = student;
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      this.apiStudent.update(student.id, result).subscribe({
+        next: (response: any) => {
+          console.log(response);
+          // Recarga los datos del servidor
+          this.apiStudent.get().subscribe({
+            next: (response: any) => {
+              this.dataSource = response;
               this.filteredData = [...this.dataSource];
               this.cdr.detectChanges();
             }
-          },
-          error: (err) => {
-            console.error('Error updating student:', err);
-          }
+          });
+        },
+        error: (error: any) => {
+          console.error('Error updating student:', error);
         }
-    );
+      });
+    }
+  });
+}
 
+openDialog(): void {
+  const dialogRef = this.dialog.open(DialogStudentComponent, {
+    width: '600px',
+    data: {
+      firstName: this.student.firstName,
+      paternalLastName: this.student.paternalLastName,
+      maternalLastName: this.student.maternalLastName,
+      dni: this.student.dni
+    }
+  });
 
-  }
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      let student1: Student = {
+        id: '', // Asegúrate de asignar un ID adecuado aquí
+        firstName: result.firstName,
+        paternalLastName: result.paternalLastName,
+        maternalLastName: result.maternalLastName,
+        dni: result.dni
+      };
+
+      this.apiStudent.create(student1).subscribe({
+        next: (response: any) => {
+          console.log(response);
+          // Recarga los datos del servidor
+          this.apiStudent.get().subscribe({
+            next: (response: any) => {
+              this.dataSource = response;
+              this.filteredData = [...this.dataSource];
+              this.cdr.detectChanges();
+            }
+          });
+        },
+        error: (error: any) => {
+          console.error('Error creating student:', error);
+        }
+      });
+    }
+  });
+}
 
   onDeleteItem(student: Student): void {
     console.log('Attempting to delete student with ID:', student.id);
@@ -90,39 +126,6 @@ export class StudentListComponent implements OnInit {
       }
     });
   }
-
-openDialog(): void {
-  const dialogRef = this.dialog.open(DialogStudentComponent, {
-    width: '600px',
-    data: {
-      firstName: this.student.firstName,
-      paternalLastName: this.student.paternalLastName,
-      maternalLastName: this.student.maternalLastName,
-      dni: this.student.dni
-    }
-  });
-
-  dialogRef.afterClosed().subscribe(result => {
-    if (result.firstName != null) {
-      let student1: Student = {
-        id: '', // Asegúrate de asignar un ID adecuado aquí
-        firstName: result.firstName,
-        paternalLastName: result.paternalLastName,
-        maternalLastName: result.maternalLastName,
-        dni: result.dni
-      };
-      this.apiStudent.create(student1).pipe(
-        concatMap(() => this.apiStudent.get())
-      ).subscribe({
-        next: (response: any) => {
-          this.dataSource = response;
-          this.filteredData = [...this.dataSource];
-          this.cdr.detectChanges();
-        }
-      });
-    }
-  });
-}
 
   applyFilter() {
     const filterValueLower = this.filterValue.trim().toLowerCase();
