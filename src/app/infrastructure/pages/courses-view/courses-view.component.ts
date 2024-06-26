@@ -29,6 +29,7 @@ export class CoursesViewComponent implements OnInit {
 
     this.router.navigate(['courses-view/course-detail', course.id]);
   }
+
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     const dialogRef: MatDialogRef<CourseCreateFormComponent> = this.dialog.open(CourseCreateFormComponent, {
       width: '550px',

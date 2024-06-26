@@ -1,4 +1,4 @@
-<div class="content-container">
+<div class="content-container" fxLayout="row wrap" fxLayoutAlign="start start">
     <mat-toolbar-row>
         <h1>List of classroom</h1>
         <span class="spacer"></span>
@@ -14,9 +14,6 @@
                     <mat-card-title>{{ course.course }}</mat-card-title>
                     <mat-card-subtitle>{{ course.teacher }} students enrolled</mat-card-subtitle>
                 </mat-card-header>
-                <mat-card-actions>
-                    <button mat-button color="primary" (click)="viewCourseDetails(course)">View</button>
-                </mat-card-actions>
             </mat-card>
         </mat-grid-tile>
     </mat-grid-list>
