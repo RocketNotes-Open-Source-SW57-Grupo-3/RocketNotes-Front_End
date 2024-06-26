@@ -46,8 +46,6 @@ export class RegisterComponent implements OnInit {
 
     this.loading = true;
 
-
-
     const UserData={
     username:this.registerForm.value.email,
       password:this.registerForm.value.password,

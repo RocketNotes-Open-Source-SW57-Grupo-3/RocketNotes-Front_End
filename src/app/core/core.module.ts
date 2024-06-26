@@ -4,7 +4,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { NGXLogger } from 'ngx-logger';
 
-import { AuthInterceptor } from './interceptors/auth.interceptor';
+import {AuthInterceptor} from "../shared/services/AuthInterceptor";
 import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
 import { AuthGuard } from './guards/auth.guard';
 import { throwIfAlreadyLoaded } from './guards/module-import.guard';

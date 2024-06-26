@@ -1,7 +1,7 @@
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -32,6 +32,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import { CourseDetailComponent } from './infrastructure/pages/course-detail/course-detail.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import {AuthInterceptor} from "./shared/services/AuthInterceptor";
 
 
 @NgModule({
@@ -45,7 +46,13 @@ import {MatNativeDateModule} from "@angular/material/core";
     RegisterComponent,
 
   ],
-
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -76,6 +83,7 @@ import {MatNativeDateModule} from "@angular/material/core";
     }),
     MatRadioModule
   ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
