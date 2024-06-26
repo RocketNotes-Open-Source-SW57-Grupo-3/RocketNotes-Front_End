@@ -20,7 +20,7 @@ export class FacilitieService extends BaseService<Facility> {
 
   constructor(http: HttpClient) {
     super(http);
-    this.resourceEndpoint = '/api/v1/factilites';
+    this.resourceEndpoint = '/api/v1/facilities';
   }
 
   createFacility(facility: FacilityWithoutId) {

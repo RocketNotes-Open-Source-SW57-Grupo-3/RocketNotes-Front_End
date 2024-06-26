@@ -3,13 +3,29 @@
     <h1>Welcome to RocketNotes Help Center</h1>
     <h2>What can we help you find?</h2>
   </div>
-  <div class="search-bar">
-    <mat-form-field appearance="fill">
-      <mat-label>Search</mat-label>
-      <input matInput placeholder="Search">
-      <button mat-icon-button matSuffix>
-        <mat-icon>search</mat-icon>
-      </button>
-    </mat-form-field>
-  </div>
+    <div class="search-bar">
+        <mat-form-field appearance="fill" class="search-field">
+            <mat-label>Search</mat-label>
+            <input matInput placeholder="Search topics, articles, or guides">
+            <button mat-icon-button matSuffix>
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+    <div class="categories">
+        <h3>Popular Topics</h3>
+        <div class="category-list">
+            <mat-card *ngFor="let category of categories" class="category-card">
+                <mat-card-header>
+                    <mat-card-title>{{ category.title }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>{{ category.description }}</p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button color="primary">Learn More</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
 </div>
