@@ -3,17 +3,47 @@ import {BaseService} from "../../../shared/services/base.service";
 import {Injectable} from "@angular/core";
 import {Facility} from "../facilities-list/facilities-list.component";
 import {HttpClient} from "@angular/common/http";
-import {tap} from "rxjs/operators";
+import {tap, retry, catchError} from "rxjs/operators";
+import { HttpHeaders } from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { FacilityWithoutId } from '../facilities-list/facilities-list.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FacilitieService  extends BaseService<Facility>{
+export class FacilitieService extends BaseService<Facility> {
+  public override httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
 
   constructor(http: HttpClient) {
     super(http);
-    this.resourceEndpoint= '/api/v1/factilites';
+    this.resourceEndpoint = '/api/v1/factilites';
+  }
 
+  createFacility(facility: FacilityWithoutId) {
+    return this.http.post<Facility>(`${environmentDevelopment.serverBasePath}${this.resourceEndpoint}`,
+        JSON.stringify(facility), this.httpOptions)
+        .pipe(
+            retry(2),
+            tap(response => console.log('Create response:', response)),
+            catchError(this.handleError)
+        );
+  }
+
+  override handleError(error: any) {
+    let errorMessage = '';
+    if(error.error instanceof ErrorEvent) {
+      // client-side error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
   }
 
   delete(id: string) {
@@ -22,7 +52,8 @@ export class FacilitieService  extends BaseService<Facility>{
     );
   }
 
-  update(id: string, facility: Facility) {
-    return this.http.put(`${environmentDevelopment.serverBasePath}${this.resourceEndpoint}/${id}`, facility);
+  updateStatus(id: string, status: string) {
+    return this.http.put(`${environmentDevelopment.serverBasePath}${this.resourceEndpoint}/${id}`, { status: status });
   }
+
 }

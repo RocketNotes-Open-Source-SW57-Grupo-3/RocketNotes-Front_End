@@ -5,6 +5,8 @@ import {SharedModule} from "../../shared/shared.module";
 import {FacilitieRoutingModule} from "./facilitie-routing.module";
 import {FacilitiesModule} from "../maintenance/facilities.module";
 import { FacilitiesDialogComponent } from './facilities-dialog/facilities-dialog.component';
+import { FacilityEditDialogComponent } from './facility-edit-dialog/facility-edit-dialog.component';
+import { FacilityDeleteDialogComponent } from './facility-delete-dialog/facility-delete-dialog.component';
 
 
 
@@ -13,6 +15,8 @@ import { FacilitiesDialogComponent } from './facilities-dialog/facilities-dialog
   declarations: [
     FacilitiesListComponent,
     FacilitiesDialogComponent,
+    FacilityEditDialogComponent,
+    FacilityDeleteDialogComponent,
 
   ],
   imports: [
@@ -22,4 +26,6 @@ import { FacilitiesDialogComponent } from './facilities-dialog/facilities-dialog
     FacilitiesModule
   ]
 })
+
+
 export class FacilitieModule { }

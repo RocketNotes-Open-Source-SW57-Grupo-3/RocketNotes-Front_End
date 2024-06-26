@@ -18,40 +18,46 @@ export interface Facility {
   styleUrls: ['./facilities-dialog.component.css']
 })
 export class FacilitiesDialogComponent implements OnInit {
-  assignedDate = new FormControl(moment().add(1, 'days').toDate(), [Validators.required, this.dateValidator()]);
+  assignedDate = new FormControl(moment().add(1, 'days').toDate(), [Validators.required, this.dateValidator1()]);
 
   constructor(
       public dialogRef: MatDialogRef<FacilitiesDialogComponent>,
       @Inject(MAT_DIALOG_DATA) public data:Facility
   ) { }
 
+  ngOnInit(): void {
+    this.data.creation = moment().format('MMMM D, YYYY');
+    console.log('Valor inicial de creation: ', this.data.creation);
+    this.calculatePeriod1();
+    console.log('Valor inicial de period después de calcular: ', this.data.period);
+  }
+
   onNoClick():void{
     this.dialogRef.close();
   }
 
-  ngOnInit(): void {
-    this.data.creation = moment().format('MMMM D, YYYY');
-    this.calculatePeriod();
-  }
+  calculatePeriod1() {
+      const creationMoment1 = moment(this.data.creation, 'MMMM D, YYYY');
+      const assignedMoment1 = moment(this.assignedDate.value);
+      const duration1 = moment.duration(assignedMoment1.diff(creationMoment1));
+      const years1 = duration1.years();
+      const months1 = duration1.months();
+      const days1 = duration1.days();
 
-  calculatePeriod() {
-    const creationMoment = moment(this.data.creation, 'MMMM D, YYYY');
-    const assignedMoment = moment(this.assignedDate.value);
-    const duration = moment.duration(assignedMoment.diff(creationMoment));
-    const years = duration.years();
-    const months = duration.months();
-    const days = duration.days();
+      if (years1 > 0) {
+        this.data.period = `${years1} years`;
+      } else if (months1 > 0) {
+        this.data.period = `${months1} months`;
+      } else {
+        this.data.period = `${days1} days`;
+      }
 
-    if (years > 0) {
-      this.data.period = `${years} years`;
-    } else if (months > 0) {
-      this.data.period = `${months} months`;
-    } else {
-      this.data.period = `${days} days`;
+      console.log('La función calculatePeriod1 se está ejecutando');
+      console.log('El valor de period es: ', this.data.period);
     }
-  }
 
-  dateValidator(): ValidatorFn {
+
+  dateValidator1(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {
       const forbidden = moment(control.value).isSameOrBefore(moment(this.data.creation, 'MMMM D, YYYY'));
       return forbidden ? {forbiddenDate: {value: control.value}} : null;

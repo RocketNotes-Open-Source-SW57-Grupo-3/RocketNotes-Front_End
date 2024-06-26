@@ -21,8 +21,8 @@ export class EquipmentService extends BaseService<Equipment>{
         );
     }
 
-updateStatus(id: string, status: string) {
+    updateStatus(id: string, status: string) {
     return this.http.put(`${environmentDevelopment.serverBasePath}${this.resourceEndpoint}/${id}`, { status: status });
-}
+    }
 
 }

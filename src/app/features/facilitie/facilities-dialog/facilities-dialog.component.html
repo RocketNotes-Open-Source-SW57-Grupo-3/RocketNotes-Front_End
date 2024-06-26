@@ -31,7 +31,7 @@
         <div class="form-field">
             <mat-form-field appearance="outline">
                 <mat-label>Period</mat-label>
-                <input matInput [matDatepicker]="periodPicker" [formControl]="assignedDate" (dateChange)="calculatePeriod()" required>
+                <input matInput [matDatepicker]="periodPicker" [formControl]="assignedDate" (dateChange)="calculatePeriod1()" required>
                 <mat-datepicker-toggle matSuffix [for]="periodPicker"></mat-datepicker-toggle>
                 <mat-datepicker #periodPicker></mat-datepicker>
                 <mat-error *ngIf="assignedDate.invalid && (assignedDate.dirty || assignedDate.touched)">
