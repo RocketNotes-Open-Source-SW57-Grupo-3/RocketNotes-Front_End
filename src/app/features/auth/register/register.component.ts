@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
       next: (response) => {
         console.log('Registration successful', response);
         this.loading = false;
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/profile-details']); // Navegar al componente de detalles del perfil
       },
       error: (error) => {
         console.error('Registration failed', error);
