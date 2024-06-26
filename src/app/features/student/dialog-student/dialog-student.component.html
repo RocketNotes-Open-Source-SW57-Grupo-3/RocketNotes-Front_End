@@ -25,7 +25,11 @@
             <li>
                 <p>DNI</p>
                 <mat-form-field>
+                  <mat-label>DNI</mat-label>
                     <input matInput formControlName="dni">
+                  <mat-error *ngIf="form.controls['dni'].hasError('pattern')">
+                    El DNI debe contener exactamente 8 números.
+                  </mat-error>
                 </mat-form-field>
             </li>
         </ul>
