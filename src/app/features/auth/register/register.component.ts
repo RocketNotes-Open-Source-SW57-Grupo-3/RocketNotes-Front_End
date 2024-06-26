@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   loading = false;
   hidePassword = true;
   hidePasswordConfirm = true;
+  userRole:string="";
 
   constructor(private formBuilder: FormBuilder, private router: Router,private authenticationService: AuthenticationService) { }
 
@@ -20,7 +21,6 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      userRole: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
@@ -33,17 +33,28 @@ export class RegisterComponent implements OnInit {
     return pass === confirmPass ? null : { mismatch: true };
   }
 
+  setRoleAdmin(){
+    this.userRole="ROLE_ADMIN";
+    return "ROLE_ADMIN";
+  }
+
   register() {
     if (this.registerForm.invalid) {
       return;
     }
 
+
     this.loading = true;
 
 
-    const { firstName, lastName, email, password, userRole } = this.registerForm.value;
 
-    this.authenticationService.signUp({ firstName, lastName, email, password, userRole }).subscribe({
+    const UserData={
+    username:this.registerForm.value.email,
+      password:this.registerForm.value.password,
+      userRole: this.setRoleAdmin()
+    }
+    console.log(UserData);
+    this.authenticationService.signUp(UserData).subscribe({
       next: (response) => {
         console.log('Registration successful', response);
         this.loading = false;
@@ -54,7 +65,6 @@ export class RegisterComponent implements OnInit {
         this.loading = false;
       }
     });
-
   }
 
   cancel() {

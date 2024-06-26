@@ -1,6 +1,6 @@
 export const environmentDevelopment = {
     production: false,
-    serverBasePath: 'https://rocketnotes.up.railway.app'
+    serverBasePath: 'http://localhost:8080'
 
 };
 

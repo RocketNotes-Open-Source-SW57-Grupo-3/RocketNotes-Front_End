@@ -21,7 +21,7 @@
 
                 <div class="full-width role-selection">
                     <mat-radio-group formControlName="userRole" aria-label="User Role">
-                        <mat-radio-button value="admin" aria-label="Administrator">Administrator</mat-radio-button>
+                        <mat-radio-button (click)="setRoleAdmin()" value="admin" aria-label="Administrator">Administrator</mat-radio-button>
                         <mat-radio-button value="teacher" aria-label="Teacher">Teacher</mat-radio-button>
                     </mat-radio-group>
                 </div>

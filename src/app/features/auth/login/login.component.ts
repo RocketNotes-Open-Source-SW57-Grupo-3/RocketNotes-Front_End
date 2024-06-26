@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {AuthenticationService} from "../../../infrastructure/services/authentication.service";
@@ -32,12 +32,17 @@ export class LoginComponent  {
 
         this.loading = true;
 
-        const { email, password } = this.loginForm.value;
+        const UserData={
+            username:this.loginForm.value.email,
+            password: this.loginForm.value.password
+        }
 
-        this.authService.signIn({ email, password }).subscribe({
+        console.log(UserData);
+        this.authService.signIn(UserData).subscribe({
             next: (response) => {
                 // Manejar respuesta exitosa
                 console.log('Login successful', response);
+                localStorage.setItem("token",response.token);
                 this.loading = false;
                 this.router.navigate(['/']);
             },
