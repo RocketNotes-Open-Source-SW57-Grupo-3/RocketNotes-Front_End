@@ -10,6 +10,6 @@ export class EquipmentService extends BaseService<Equipment>{
 
   constructor(http: HttpClient) {
     super(http);
-    this.resourceEndpoint ='/equipments'
+    this.resourceEndpoint ='/api/v1/equipments'
   }
 }
