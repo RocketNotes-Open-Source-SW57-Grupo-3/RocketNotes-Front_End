@@ -7,8 +7,8 @@
         <thead>
         <tr>
             <th>LastName and FirstName</th>
-            <th class="aligned-cell" *ngFor="let attendance of students[0].attendance">{{ attendance.date }}
-            <button (click)="deleteAssistance(attendance.date)">Delete</button>
+            <th class="aligned-cell" *ngFor="let attendance of students[0]?.attendance">{{ attendance.date }}
+                <button (click)="deleteAssistance(attendance.date)">Delete</button>
             </th>
         </tr>
         </thead>
@@ -27,7 +27,7 @@
             </td>
 
 
-            <td class="aligned-cell" *ngFor="let attendance of student.attendance" (click)="toggleAttendanceStatus(attendance)">
+            <td class="aligned-cell" *ngFor="let attendance of student?.attendance" (click)="toggleAttendanceStatus(attendance)">
                 <!-- Usa ngClass para aplicar clases condicionalmente basado en el estado de asistencia -->
                 <span [ngClass]="{'present': attendance.status === 'present', 'absent': attendance.status === 'absent'}"></span>
             </td>

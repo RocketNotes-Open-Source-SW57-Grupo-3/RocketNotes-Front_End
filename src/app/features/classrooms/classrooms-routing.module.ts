@@ -15,9 +15,9 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: '', component: ClassroomsHomeComponent },
-      { path: 'courses', component: ClassroomsCoursesComponent },
-      { path: 'courses/attendance', component: ClassroomsAttendanceComponent },
-      { path: 'courses/grades', component: ClassroomGradesComponent },
+      { path: 'courses/:id', component: ClassroomsCoursesComponent },
+      { path: 'courses/:id/attendance/:id', component: ClassroomsAttendanceComponent },
+      { path: 'courses/:id/grades/:id', component: ClassroomGradesComponent },
     ]
   }
 ];

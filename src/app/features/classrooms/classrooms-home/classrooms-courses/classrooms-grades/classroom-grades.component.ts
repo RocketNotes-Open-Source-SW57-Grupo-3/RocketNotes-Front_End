@@ -1,26 +1,66 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {GradeDialogComponent} from "./grade-dialog.component";
+import { GradeDialogComponent } from "./grade-dialog.component";
+import { CoursesService } from '../courses.service';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import {Location} from '@angular/common';
 @Component({
     selector: 'app-root',
     templateUrl:'./classroom-grades.component.html',
     styleUrls:['./classroom-grades.component.css']
 })
-export class ClassroomGradesComponent  {
-
+export class ClassroomGradesComponent implements OnInit {
+    courseId: number = 0;
+    students: any[] = [];
     isEditing = false;
-    isAddingGrade = false; // Nueva propiedad para controlar si se está agregando una nueva nota
+    isAddingGrade = false;
 
     constructor(
         public dialog: MatDialog,
-
+        private location: Location,
+        private coursesService: CoursesService,
+        private route: ActivatedRoute
     ) {}
+
+    ngOnInit() {
+        this.route.paramMap.pipe(
+            switchMap(params => {
+                const id = params.get('id');
+                if (id !== null) {
+                    this.courseId = +id;
+                }
+                return this.coursesService.getStudents();
+            })
+        ).subscribe(students => {
+            this.students = students.filter((student: { classrooms: number[]; }) => student.classrooms.includes(this.courseId))
+                .map((student: { id: any; firstName: any; paternalLastName: any; maternalLastName: any; }) => ({
+                    studentId: student.id,
+                    name: `${student.firstName} ${student.paternalLastName} ${student.maternalLastName}`,
+                    grades: [],
+                    average: 0,
+                    state: '',
+                    newGrade: null
+                }));
+
+            this.coursesService.getGrades().subscribe(gradesData => {
+                for (let grade of gradesData) {
+                    let student = this.students.find(student => student.studentId === grade.studentId.StudentId);
+                    if (student && this.courseId === grade.courseId.CourseId && grade.grade !== undefined) {
+                        student.grades.push(grade.grade); // Empuja solo el valor de 'grade.grade'
+                        student.average = this.calculateAverage(student.grades); // Calcula el promedio basado en la lista de calificaciones
+                        student.state = student.average >= 12.5 ? 'green' : 'red';
+                    }
+                }
+            });
+        });
+    }
 
     openDialog(): void {
         const dialogRef = this.dialog.open(GradeDialogComponent);
 
         dialogRef.componentInstance.accept.subscribe(() => {
-            this.isAddingGrade = true; // Cambia a true cuando se hace clic en "Accept"
+            this.isAddingGrade = true;
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -31,43 +71,32 @@ export class ClassroomGradesComponent  {
     saveGrades(): void {
         this.students.forEach(student => {
             if (student.newGrade !== null && student.newGrade >= 0 && student.newGrade <= 20) {
-                student.grades.push(student.newGrade);
-                student.average = this.calculateAverage(student.grades); // Recalcula el promedio
-                student.state = student.average >= 12.5 ? 'green' : 'red'; // Actualiza el estado
+                const grade = student.newGrade;
+
+                this.coursesService.saveGrade({
+                    studentId: { StudentId: student.studentId },
+                    courseId: { CourseId: this.courseId },
+                    grade: grade
+                }).subscribe(savedGrade => {
+
+
+                    student.grades.push(savedGrade);
+                    student.average = this.calculateAverage(student.grades);
+                    student.state = student.average >= 12.5 ? 'green' : 'red';
+                    student.newGrade = null; // Resetea el campo de nueva calificación
+                });
             }
+
+            window.location.reload();
         });
-        this.isAddingGrade = false;
-
-        localStorage.setItem('students', JSON.stringify(this.students));
     }
-
-    students = [
-        { name:'EstudianteU202218475', grades: [20, 15, 18], average: 0, state: '', newGrade: null },
-        { name:'EstudianteU202218476', grades: [10, 10, 16], average: 0, state: '', newGrade: null },
-        { name:'EstudianteU202218477', grades: [11, 14, 13], average: 0, state: '', newGrade: null },
-
-    ];
 
     calculateAverage(grades: number[]): number {
         const sum = grades.reduce((a, b) => a + b, 0);
         return sum / grades.length;
     }
 
-    // Agrega un nuevo método para verificar si la nota es válida
     isValidGrade(): boolean {
         return this.students.every(student => student.newGrade !== null && student.newGrade >= 0 && student.newGrade <= 20);
-    }
-
-    ngOnInit() {
-
-        const storedStudents = localStorage.getItem('students');
-        if (storedStudents) {
-            this.students = JSON.parse(storedStudents);
-        }
-
-        this.students.forEach(student => {
-            student.average = this.calculateAverage(student.grades);
-            student.state = student.average >= 12.5 ? 'green' : 'red';
-        });
     }
 }

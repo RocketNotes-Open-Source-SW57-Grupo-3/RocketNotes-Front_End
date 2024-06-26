@@ -6,7 +6,7 @@
         <thead>
         <tr>
             <th>LastName and FirstName</th>
-            <th *ngFor="let grade of students[0].grades; let i = index">Grade {{i + 1}}</th>
+            <th *ngFor="let grade of students[0]?.grades; let i = index">Grade {{i + 1}}: {{grade.grade}}</th>
             <th *ngIf="isAddingGrade">New Grade</th>
             <th class="aligned-cell">Average</th>
             <th class="aligned-cell">State</th>
