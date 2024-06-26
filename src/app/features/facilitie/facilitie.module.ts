@@ -1,17 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListFacilitiesComponent } from './list-facilities/list-facilities.component';
+import {FacilitiesListComponent} from "./facilities-list/facilities-list.component";
 import {SharedModule} from "../../shared/shared.module";
 import {FacilitieRoutingModule} from "./facilitie-routing.module";
 import {FacilitiesModule} from "../maintenance/facilities.module";
-import { DialogFacilitieComponent } from './dialog-facilitie/dialog-facilitie.component';
+import { FacilitiesDialogComponent } from './facilities-dialog/facilities-dialog.component';
+import { FacilityEditDialogComponent } from './facility-edit-dialog/facility-edit-dialog.component';
+import { FacilityDeleteDialogComponent } from './facility-delete-dialog/facility-delete-dialog.component';
+
 
 
 
 @NgModule({
   declarations: [
-    ListFacilitiesComponent,
-    DialogFacilitieComponent
+    FacilitiesListComponent,
+    FacilitiesDialogComponent,
+    FacilityEditDialogComponent,
+    FacilityDeleteDialogComponent,
+
   ],
   imports: [
     CommonModule,
@@ -20,4 +26,6 @@ import { DialogFacilitieComponent } from './dialog-facilitie/dialog-facilitie.co
     FacilitiesModule
   ]
 })
+
+
 export class FacilitieModule { }

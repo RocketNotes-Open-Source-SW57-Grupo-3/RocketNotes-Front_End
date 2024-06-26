@@ -5,15 +5,18 @@ import {EquipmentService} from "../services/equipment.service";
 import {DialogStudentComponent} from "../../student/dialog-student/dialog-student.component";
 import {EquipmentDialogComponent} from "../equipment-dialog/equipment-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {EquipmentEditDialogComponent} from "../equipment-edit-dialog/equipment-edit-dialog.component";
+import {EquipmentDeleteDialogComponent} from "../equipment-delete-dialog/equipment-delete-dialog.component";
+import { finalize } from 'rxjs/operators';
 
 export interface Equipment {
-  equipmentId: string;
+  id: string;
   name: string;
-  quantity: string;
-  budget: string;
+  quantity: bigint;
+  budget: bigint;
   creation: string;
   period: string;
-  state: string;
+  status: string;
 }
 
 @Component({
@@ -23,7 +26,7 @@ export interface Equipment {
 })
 
 export class EquipmentComponent implements OnInit {
-  displayedColumns: string[] = ['id','name','quantity','budget','creation','period','state']
+  displayedColumns: string[] = ['id','name','quantity','budget','creation','period','status','editDelete']
 
   dataSource: Equipment[] = [];
   equipment: any={}
@@ -39,9 +42,7 @@ export class EquipmentComponent implements OnInit {
       }
     })
   }
-  onEditItem(object: any){
 
-  }
   openDialog(){
     const dialogRef= this.dialog.open(EquipmentDialogComponent,{
       width: '600px',
@@ -50,9 +51,8 @@ export class EquipmentComponent implements OnInit {
         quantity: this.equipment.quantity,
         creation: this.equipment.creation,
         budget: this.equipment.budget,
-        state : this.equipment.state,
-        period: this.equipment.period
-
+        period: this.equipment.period,
+        status : this.equipment.status
       }
     });
     dialogRef.afterClosed().subscribe(result=>{
@@ -63,18 +63,78 @@ export class EquipmentComponent implements OnInit {
           budget:result.budget,
           creation:result.creation,
           period:result.period,
-          state: result.state,
+          status: result.status,
         }
-        this.apiService.create(equipment1).subscribe({
-              next:(response:any)=>{
-                console.log(response);
-              }
-            }
-        )
-
+        this.apiService.create(equipment1).pipe(
+            finalize(() => location.reload())
+        ).subscribe({
+          next:(response:any)=>{
+            console.log(response);
+          },
+          error: (error: any) => {
+            console.error('There was an error creating the item', error);
+          }
+        })
       }
-
     })
   }
+
+  onEditItem(element: Equipment) {
+  const dialogRef = this.dialog.open(EquipmentEditDialogComponent, {
+    width: '600px',
+    data: {
+      id: element.id,
+      name: element.name,
+      quantity: element.quantity,
+      budget: element.budget,
+      creation: element.creation,
+      period: element.period,
+      status: element.status
+    }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      let updatedStatus = result.status;
+
+      this.apiService.updateStatus(result.id, 'FINALIZED').subscribe({
+    next: (response: any) => {
+      // Update the item in the dataSource array
+      let index = this.dataSource.findIndex(item => item.id === result.id);
+      if (index !== -1) {
+        this.dataSource[index].status = 'FINALIZED';
+      }
+    },
+    error: (error: any) => {
+      // Handle error here
+      console.error('There was an error updating the item', error);
+    }
+  });
+    }
+  });
+}
+
+  onDeleteItem(element: Equipment) {
+    const dialogRef = this.dialog.open(EquipmentDeleteDialogComponent, {
+      width: '400px',
+      data: element
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.apiService.delete(element.id).pipe(
+            finalize(() => location.reload())
+        ).subscribe({
+          next: (response: any) => {
+            console.log('Delete response:', response);
+          },
+          error: (error: any) => {
+            console.error('There was an error deleting the item', error);
+          }
+        });
+      }
+    });
+  }
+
 
 }

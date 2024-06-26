@@ -42,6 +42,7 @@ export class BaseService <T>{
         JSON.stringify(item), this.httpOptions)
         .pipe(retry(2),catchError(this.handleError))
   }
+
 }
 
 

@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Delete Facility</h2>
+
+<mat-dialog-content>
+    <p>Are you sure you want to delete the facility <strong>{{data.name}}</strong>?</p>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button color="warn" cdkFocusInitial (click)="dialogRef.close(true)">Delete</button>
+</mat-dialog-actions>
