@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/core/services/auth.service';
+import {AuthenticationService} from "../../../infrastructure/services/authentication.service";
 
 @Component({
   selector: 'app-profile-details',
@@ -15,8 +15,11 @@ export class ProfileDetailsComponent implements OnInit {
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.fullName = this.authService.getCurrentUser().fullName;
-    this.email = this.authService.getCurrentUser().email;
+
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      this.email = currentUser.username; // O currentUser.email si tu API retorna 'email'
+    }
   }
 
 }
