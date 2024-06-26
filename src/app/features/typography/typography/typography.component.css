@@ -1,0 +1,44 @@
+.container {
+  text-align: center;
+  color: black;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+
+.header h2 {
+  margin: 10px 0 30px 0;
+  font-size: 1.5em;
+}
+
+.search-bar {
+  width: 50%;
+  margin: 0 auto; /* Center the search bar */
+}
+
+.search-bar mat-form-field {
+  width: 100%;
+  background-color: #FFFFFF; /* Cambia el color de fondo aquí */
+  border-radius: 5px; /* Redondea los bordes si lo deseas */
+}
+
+.search-bar input {
+  color: black; /* Cambia el color del texto */
+}
+
+.search-bar .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #FFFFFF; /* Cambia el color de fondo del campo de entrada */
+}
+
+.search-bar .mat-form-field-appearance-fill .mat-form-field-underline .mat-form-field-ripple {
+  background-color: #1ec089; /* Cambia el color del borde */
+}
+
+.search-bar button.mat-icon-button {
+  color: #1ec089; /* Cambia el color del icono de búsqueda */
+}
+
